@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">rCard</string>
+    <string name="home_msg">Send Resume</string>
+    <string name="send_bluetooth">Send using Bluetooth</string>
+     <string name="send_nfc">Send using NFC</string>
+    <string name="receive">RECEIVE</string>
+    <string name="action_settings">Settings</string>
+    <string name="upload_file">Upload Resume for offline Access</string>
+    <string name="upload">Upload</string>
+    <string-array name="fill_options_array">
+        <item >Upload Resume</item>
+        <item>Send local Resume </item>
+        <item>Send local Resume via app</item>
+        <item>Delete local Resume</item>
+        <item >Build custom Resume</item>
+    </string-array>
+</resources>
