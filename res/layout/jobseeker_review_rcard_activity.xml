@@ -10,8 +10,8 @@
 
         <TextView
             android:id="@+id/emailLbl"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_width="0dp"
             android:layout_weight="0.20"
             android:text="Email*" />
 
