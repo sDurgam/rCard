@@ -1,11 +1,10 @@
 package sph.durga.rCard.jobseeker;
 
+import sph.durga.rCard.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-
-import com.example.resumeshare.R;
 
 public class JobSeekerHomeActivity  extends FragmentActivity
 {
@@ -18,7 +17,7 @@ public class JobSeekerHomeActivity  extends FragmentActivity
 	
 	public void ReviewRcardClick(View view)
 	{
-		Intent in = new Intent(this, EditRcardActivity.class);
+		Intent in = new Intent(this, ReviewRcardActivity.class);
 		startActivity(in);
 	}
 	

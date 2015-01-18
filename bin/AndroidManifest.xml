@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.resumeshare"
+    package="sph.durga.rCard"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name="sph.durga.rCard.jobseeker.JobSeekerHomeActivity"></activity>
-        <activity android:name="sph.durga.rCard.jobseeker.EditRcardActivity"></activity>
+        <activity android:name="sph.durga.rCard.jobseeker.ReviewRcardActivity"></activity>
         <activity android:name="sph.durga.rCard.jobseeker.SendRcardActivity"></activity>
         
         <activity android:name="sph.durga.rCard.recruiter.RecruiterHomeActivity"></activity>
