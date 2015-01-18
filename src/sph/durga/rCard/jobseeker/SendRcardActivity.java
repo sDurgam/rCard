@@ -1,7 +1,6 @@
 package sph.durga.rCard.jobseeker;
 
-import com.example.resumeshare.R;
-
+import sph.durga.rCard.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 

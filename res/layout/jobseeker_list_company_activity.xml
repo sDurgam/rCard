@@ -12,7 +12,7 @@
         android:textSize="@android:style/TextAppearance.Large"
         android:layout_gravity="center" />
     <GridView
-        android:id="@+id/comapniesGridView"
+        android:id="@+id/comapniesListGrid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.80"

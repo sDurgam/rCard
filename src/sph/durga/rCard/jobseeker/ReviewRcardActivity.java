@@ -1,6 +1,7 @@
 package sph.durga.rCard.jobseeker;
 
 import sph.durga.rCard.Constants;
+import sph.durga.rCard.R;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.Rcard;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,9 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.example.resumeshare.R;
 
-public class EditRcardActivity extends FragmentActivity
+public class ReviewRcardActivity extends FragmentActivity
 {
 	SQLiteDBHelper dbHelper;
 	Rcard rcardObj;

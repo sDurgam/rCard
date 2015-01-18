@@ -4,11 +4,8 @@ import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.jobseeker.JobSeekerHomeActivity;
 import sph.durga.rCard.recruiter.RecruiterHomeActivity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-
-import com.example.resumeshare.R;
 
 public class HomeScreenActivity extends FragmentActivity
 {
