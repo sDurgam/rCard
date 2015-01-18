@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+  <TextView
+        android:id="@+id/CompaniesLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
+        android:text="@string/companies_list_str" 
+        android:textSize="@android:style/TextAppearance.Large"
+        android:layout_gravity="center" />
+    <GridView
+        android:id="@+id/comapniesGridView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.80"
+        android:numColumns="2"
+        android:scrollbars="vertical">
+
+    </GridView>
+
+    <Button
+        android:id="@+id/addCompanyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
+        android:text="Add"
+        android:onClick="addCompanyBtn"
+        android:layout_gravity="center" />
+
+</LinearLayout>
