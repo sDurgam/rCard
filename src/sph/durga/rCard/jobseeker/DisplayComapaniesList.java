@@ -1,12 +1,14 @@
 package sph.durga.rCard.jobseeker;
 
+import java.util.ArrayList;
+
 import sph.durga.rCard.R;
-import sph.durga.rCard.Utils.CompaniesListAdapter.CustomAdapter;
+import sph.durga.rCard.Utils.CompaniesListAdapter;
+import sph.durga.rCard.Utils.CompanyDisplay;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.Companies;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 public class DisplayComapaniesList extends FragmentActivity 
@@ -14,6 +16,7 @@ public class DisplayComapaniesList extends FragmentActivity
 	GridView comapniesListGrid;
 	SQLiteDBHelper dbHelper;
 	Companies companiesObj;
+	CompaniesListAdapter csadapter;
 	
 	
 	@Override
@@ -31,9 +34,9 @@ public class DisplayComapaniesList extends FragmentActivity
 		super.onResume();
 		dbHelper = new SQLiteDBHelper(this);
 		companiesObj = new Companies(dbHelper);
-		 companiesObj.GetcompaniesList();
-		
-		
+		ArrayList<CompanyDisplay> companiesList = companiesObj.GetcompaniesList();
+		csadapter = new CompaniesListAdapter(this, companiesList);
+		comapniesListGrid.setAdapter(csadapter);
 	}
 
 	@Override
@@ -42,7 +45,4 @@ public class DisplayComapaniesList extends FragmentActivity
 		super.onPause();
 		dbHelper.close();
 	}
-	
-	CustomAdapter adapter = new CustomAdapter(this, R.layout.row_grid, storeList);
-	transcationsListView.setAdapter(adapter);
 }

@@ -2,21 +2,24 @@ package sph.durga.rCard.Utils;
 
 import java.util.ArrayList;
 
+import sph.durga.rCard.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
-public class CompaniesListAdapter extends ArrayList<CompanyDisplay>
+public class CompaniesListAdapter extends BaseAdapter
 {
 	private Context mContext;
 	ArrayList<CompanyDisplay> companiesList;
 
-	public CompaniesListAdapter(Context c) {
+	public CompaniesListAdapter(Context c, ArrayList<CompanyDisplay> compList) {
 		mContext = c;
+		companiesList = compList;
 	}
 
 	public int getCount() {
@@ -32,36 +35,24 @@ public class CompaniesListAdapter extends ArrayList<CompanyDisplay>
 	}
 
 	// create a new ImageView for each item referenced by the Adapter
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent) 
+	{
 		View rowView;
+		CompanyDisplay displayObj;
 		if (convertView == null)
 		{  // if it's not recycled, initialize some attributes
-			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-			rowView = inflater.inflate(layoutResourceId, parent, false);
-			imageView = new ImageView(mContext);
-			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(8, 8, 8, 8);
-		} else {
+			LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+			rowView = inflater.inflate(R.layout.jobseeker_company_row_grid, parent, false);
+			displayObj = companiesList.get(position);
+			TextView companyName = (TextView) rowView.findViewById(R.id.companyName);
+			TextView rcardSent = (TextView) rowView.findViewById(R.id.RcardSent);
+			companyName.setText(displayObj.getCompanyName());
+			rcardSent.setText(String.valueOf(displayObj.isRcardSent()));
+
+		} else 
+		{
 			rowView = convertView;
 		}
-
-		imageView.setImageResource(mThumbIds[position]);
-		return imageView;
+		return rowView;
 	}
-
-	// references to our images
-	private Integer[] mThumbIds = {
-			R.drawable.sample_2, R.drawable.sample_3,
-			R.drawable.sample_4, R.drawable.sample_5,
-			R.drawable.sample_6, R.drawable.sample_7,
-			R.drawable.sample_0, R.drawable.sample_1,
-			R.drawable.sample_2, R.drawable.sample_3,
-			R.drawable.sample_4, R.drawable.sample_5,
-			R.drawable.sample_6, R.drawable.sample_7,
-			R.drawable.sample_0, R.drawable.sample_1,
-			R.drawable.sample_2, R.drawable.sample_3,
-			R.drawable.sample_4, R.drawable.sample_5,
-			R.drawable.sample_6, R.drawable.sample_7
-	};
 }
