@@ -37,6 +37,7 @@ public class ReviewRcardActivity extends FragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobseeker_review_rcard_activity);
+		
 		nameTxt = (EditText) findViewById(R.id.nameTxt);
 		phoneTxt = (EditText) findViewById(R.id.phoneTxt);
 		emailTxt = (EditText) findViewById(R.id.emailTxt);
@@ -60,7 +61,8 @@ public class ReviewRcardActivity extends FragmentActivity
 		super.onResume();
 		dbHelper = new SQLiteDBHelper(this);
 		rcardObj = new Rcard(dbHelper);
-		isEmailUpdated = rcardObj.GetEmail();
+		rcardObj.FetchRCard();
+		populateRCard();
 	}
 
 	@Override
@@ -76,7 +78,7 @@ public class ReviewRcardActivity extends FragmentActivity
 		Integer[] array = new Integer[50];
 		for(int i =0; i < 50; i++)
 		{
-			array[i] = i + 1;
+			array[i] = i;
 		}
 
 		androidexpList.setAdapter(new ArrayAdapter<Integer>(this,
@@ -261,25 +263,42 @@ public class ReviewRcardActivity extends FragmentActivity
 //		}
 //	}
 
-	public void SaveAll()
+	public void SaveAll(View view)
 	{
-		String name = nameTxt.toString();
-		String phone = phoneTxt.toString();
-		String email = emailTxt.toString();
-		String primaryskills = primaryskillsTxt.toString();
+		String name = nameTxt.getText().toString();
+		String phone = phoneTxt.getText().toString();
+		String email = emailTxt.getText().toString();
+		String primaryskills = primaryskillsTxt.getText().toString();
 		String androidexp = androidexpList.getSelectedItem().toString();
 		String iosexp = iosexpList.getSelectedItem().toString();
-		String andurl = androidportfolioTxt.toString();
-		String iosurl = iosportfolioTxt.toString();
-		String othurl = othportfolioTxt.toString();
-		String linkurl = linkedinTxt.toString();
-		String resumeurl = resumeTxt.toString();
-		String otherinfo = otherinfoTxt.toString();
-		String degree = degreeTxt.toString();
+		String andurl = androidportfolioTxt.getText().toString();
+		String iosurl = iosportfolioTxt.getText().toString();
+		String othurl = othportfolioTxt.getText().toString();
+		String linkurl = linkedinTxt.getText().toString();
+		String resumeurl = resumeTxt.getText().toString();
+		String otherinfo = otherinfoTxt.getText().toString();
+		String degree = degreeTxt.getText().toString();
 		long result = rcardObj.saveAll(name, phone, email, primaryskills, androidexp, iosexp, andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
 		if(result != -1)
 		{
 			isEmailUpdated = true;
 		}
+	}
+	
+	public void populateRCard()
+	{
+		nameTxt.setText(rcardObj.getName() == null ? "" : rcardObj.getName());
+		phoneTxt.setText(rcardObj.getPhone() == null ? "" : rcardObj.getPhone());
+		emailTxt.setText(rcardObj.getEmail() == null ? "" : rcardObj.getEmail());
+		primaryskillsTxt.setText(rcardObj.getPrimaryskills() == null ? "" : rcardObj.getPrimaryskills());
+		androidexpList.setSelection(rcardObj.getAndroidexp() == null ? 0 : rcardObj.getAndroidexp());
+		iosexpList.setSelection(rcardObj.getIosexp() == null ? 0 : rcardObj.getIosexp());
+		androidportfolioTxt.setText(rcardObj.getAndurl() == null ? "" : rcardObj.getAndurl());
+		iosportfolioTxt.setText(rcardObj.getIosurl() == null ? "" : rcardObj.getIosurl());
+		othportfolioTxt.setText(rcardObj.getOthurl() == null ? "" : rcardObj.getOthurl());
+		linkedinTxt.setText(rcardObj.getLinkurl() == null ? "" : rcardObj.getLinkurl());
+		resumeTxt.setText(rcardObj.getResumeurl() == null ? "" : rcardObj.getResumeurl());
+		otherinfoTxt.setText(rcardObj.getOtherinfo() == null ? "" : rcardObj.getOtherinfo());
+		degreeTxt.setText(rcardObj.getDegree() == null ? "" : rcardObj.getDegree());
 	}
 }
