@@ -1,229 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/emailLbl"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="0.20"
-            android:text="Email*" />
-
-        <TextView
-            android:id="@+id/emailTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            android:text="abc.abc@abc.com" />
-<!--            <Button -->
-<!--             android:id="@+id/emailBtn" -->
-<!--             android:layout_width="0dp" -->
-<!--             android:layout_height="wrap_content" -->
-<!--             android:layout_weight="0.20" -->
-<!--             android:text="ok" -->
-<!--             android:onClick="saveEmail" /> -->
-        
-        
-    </LinearLayout>
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/nameLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Name" />
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/emailLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Email*" />
 
-        <EditText
-            android:id="@+id/nameTxt"
-            android:layout_width="0dp"
+            <EditText
+                android:id="@+id/emailTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+            <!-- <Button -->
+            <!-- android:id="@+id/emailBtn" -->
+            <!-- android:layout_width="0dp" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_weight="0.20" -->
+            <!-- android:text="ok" -->
+            <!-- android:onClick="saveEmail" /> -->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            android:text="Durga Malleswari"
-            android:maxLines="3"
-            android:scrollbars="vertical" />
-        
-        <Button
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/nameLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/nameTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60"
+                android:maxLines="3"
+                android:scrollbars="vertical"
+                android:text="Durga Malleswari" />
+
+            <!--
+             <Button
             android:id="@+id/nameBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok" 
             android:onClick="saveName"/>
-        
-    </LinearLayout>
+            -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/phoneLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Phone" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/phoneTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            android:text="000-000-0000" />
-         <Button
+            <TextView
+                android:id="@+id/phoneLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Phone" />
+
+            <EditText
+                android:id="@+id/phoneTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60"
+                android:text="000-000-0000" />
+            <!--
+              <Button
             android:id="@+id/phoneBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="savePhone" />
-        
-    </LinearLayout>
+            -->
 
-  
-       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/primaryskillsLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Primary Skills" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/primaryskillsTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            android:text=""
-            android:maxLines="3"
-            android:scrollbars="vertical" />
-        
-           <Button
+            <TextView
+                android:id="@+id/primaryskillsLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Primary Skills" />
+
+            <EditText
+                android:id="@+id/primaryskillsTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60"
+                android:maxLines="3"
+                android:scrollbars="vertical"
+                android:text="" />
+
+            <!--
+            <Button
             android:id="@+id/primaryskillsBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="savePrimarySkills" />
-    </LinearLayout>
-    
+            -->
+        </LinearLayout>
+
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/AndroidLbl"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Android Years of Experience" />
+            android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/androidexpList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/AndroidLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Android Years of Experience" />
+
+            <Spinner
+                android:id="@+id/androidexpList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+            <Button
             android:id="@+id/androidexpBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveandroidExp" />
-    </LinearLayout>
-     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/iosLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ios Years of Experience" />
+            android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/iosexpList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/iosLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="ios Years of Experience" />
+
+            <Spinner
+                android:id="@+id/iosexpList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/iosexpBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveiosExp" />
-    </LinearLayout>
-    
-       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/androidportfolioLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Android portfolio" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/androidportfolioTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/androidportfolioLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Android portfolio" />
+
+            <EditText
+                android:id="@+id/androidportfolioTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/androidportfolioBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveandroidportfolio" />
-    </LinearLayout>
-    
-       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/iosportfolioLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ios portfolio" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/iosportfolioTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
+            <TextView
+                android:id="@+id/iosportfolioLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="ios portfolio" />
+
+            <EditText
+                android:id="@+id/iosportfolioTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+            <!--
            <Button
             android:id="@+id/iosportfolioBtn"
             android:layout_width="0dp"
@@ -231,155 +242,161 @@
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveiosportfolio" />
-    </LinearLayout>
-    
-       <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/othportfolioLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Other portfolio" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/othportfolioTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/othportfolioLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Other portfolio" />
+
+            <EditText
+                android:id="@+id/othportfolioTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/othportfolioBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveothportfolio" />
-    </LinearLayout>
-         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/linkedinLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Linkedin URL" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/linkedinTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/linkedinLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Linkedin URL" />
+
+            <EditText
+                android:id="@+id/linkedinTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/linkedinBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok" 
             android:onClick="savelinkedin"/>
-    </LinearLayout>
-         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/resumeLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Resume URL" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/resumeTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/resumeLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Resume URL" />
+
+            <EditText
+                android:id="@+id/resumeTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/resumeBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveresumeurl" />
-           
-           
-           
-           
-    </LinearLayout>
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
 
-        <TextView
-            android:id="@+id/degreeLbl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Highestdegree" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/highestdegreeTxt"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/degreeLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Highestdegree" />
+
+            <EditText
+                android:id="@+id/highestdegreeTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/degreeBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="savedegree" />
-    </LinearLayout>
-    
-              <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            -->
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/otherinfoLbl"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Other Info" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/otherinfoTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.60"
-            />
-        
-           <Button
+            <TextView
+                android:id="@+id/otherinfoLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:text="Other Info" />
+
+            <EditText
+                android:id="@+id/otherinfoTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.60" />
+
+            <!--
+                <Button
             android:id="@+id/otherinfoBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.20"
             android:text="ok"
             android:onClick="saveotherinfo" />
-    </LinearLayout>
-      <Button
-            android:id="@+id/saveAllBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Save All"
-            android:onClick="saveAll" />
-         
+            -->
+        </LinearLayout>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/saveAllBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="saveAll"
+            android:text="Save rCard" />
+    </LinearLayout>
+
+</ScrollView>

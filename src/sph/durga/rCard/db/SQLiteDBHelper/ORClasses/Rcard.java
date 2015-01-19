@@ -20,14 +20,7 @@ public class Rcard
 		cursor.moveToFirst();
 		int cnt = cursor.getCount();
 		cursor.close();
-		if(cnt == 1)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return cnt == 1;
 	}
 
 	public void UpdateField(String key, String value)
@@ -39,19 +32,21 @@ public class Rcard
 		writer.close();
 	}
 
-	public void InsertField(String key, String value)
-	{
-		SQLiteDatabase writer = dbHelper.getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		cv.put(key, value);
-		writer.insert(SQLiteDBHelper.TABLE_RCARD, null, cv);
-		writer.close();
-	}
+//	public void InsertField(String key, String value)
+//	{
+//		SQLiteDatabase writer = dbHelper.getWritableDatabase();
+//		writer.delete(SQLiteDBHelper.TABLE_RCARD, null, null);
+//		ContentValues cv = new ContentValues();
+//		cv.put(key, value);
+//		writer.insert(SQLiteDBHelper.TABLE_RCARD, null, cv);
+//		writer.close();
+//	}
 
 	public long saveAll(String name, String phone, String email,
 			String primaryskills, String androidexp, String iosexp,
 			String andurl, String iosurl, String othurl, String linkurl,
-			String resumeurl, String highestdegree, String otherinfo) {
+			String resumeurl, String highestdegree, String otherinfo) 
+	{
 		SQLiteDatabase writer = dbHelper.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(SQLiteDBHelper.RCARD_EMAIL, email);
@@ -67,6 +62,7 @@ public class Rcard
 		cv.put(SQLiteDBHelper.RCARD_RESUME_URL, resumeurl);
 		cv.put(SQLiteDBHelper.RCARD_HIGHEST_DEGREE, highestdegree);
 		cv.put(SQLiteDBHelper.RCARD_OTHER_INFO, otherinfo);
+		writer.delete(SQLiteDBHelper.TABLE_RCARD, null, null);
 		long result = writer.insert(SQLiteDBHelper.TABLE_RCARD, null, cv);
 		writer.close();
 		return result;
