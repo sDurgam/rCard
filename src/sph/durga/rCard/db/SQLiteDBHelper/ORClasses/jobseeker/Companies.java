@@ -44,8 +44,8 @@ public class Companies
 				companiesList.add(cmpDisplayObj);
 			}while(cursor.moveToNext());
 		}
-		cursor.close();
 		reader.close();
+		cursor.close();
 		return companiesList;
 	}
 
@@ -55,6 +55,7 @@ public class Companies
 		Cursor cursor = db.query(SQLiteDBHelper.TABLE_COMPANY, new String[] { SQLiteDBHelper.COMPANY_NAME, SQLiteDBHelper.COMPANY_MYRCARD_SENT}, whereClause, whereArgs, null, null, null);
 		if(cursor.getCount() > 0)
 		{
+			cursor.close();
 			//update
 			return true;
 		}
@@ -63,7 +64,6 @@ public class Companies
 			//insert
 			return false;
 		}
-
 	}
 
 	public int SaveCompany(String name, String contactname, String email, String otherInfo)

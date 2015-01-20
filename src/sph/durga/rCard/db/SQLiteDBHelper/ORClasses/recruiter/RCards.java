@@ -117,16 +117,19 @@ public class RCards
 			otherinfo = cursor.getString(11);
 			degree = cursor.getString(12);
 		}
+		reader.close();
 		cursor.close();
+		
 	}
 	
-	public void FetchRCard(String email)
+	public int FetchRCard(String email)
 	{
-		SQLiteDatabase reader = dbHelper.getReadableDatabase();
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		String whereClause = SQLiteDBHelper.RCARDS_EMAIL + "= ?";
 		String[] whereArgs = { email };
 		Cursor cursor;
-		cursor = reader.query(SQLiteDBHelper.TABLE_RCARDS, new String[] { SQLiteDBHelper.RCARDS_NAME , 
+		int count;
+		cursor = db.query(SQLiteDBHelper.TABLE_RCARDS, new String[] { SQLiteDBHelper.RCARDS_NAME , 
 				                                                         SQLiteDBHelper.RCARDS_PHONE, 
 				                                                         SQLiteDBHelper.RCARDS_EMAIL, 
 				                                                         SQLiteDBHelper.RCARDS_PRIMARY_SKILLS, 
@@ -140,8 +143,8 @@ public class RCards
 				                                                         SQLiteDBHelper.RCARDS_HIGHEST_DEGREE, 
 				                                                         SQLiteDBHelper.RCARDS_OTHER_INFO}, 
 				                                                         whereClause, whereArgs, null, null, null);
-		
-		if(cursor.getCount() > 0) {
+		count = cursor.getCount();
+		if(count > 0) {
 			cursor.moveToFirst();
 			name = cursor.getString(0);
 			phone = cursor.getString(1);
@@ -157,7 +160,52 @@ public class RCards
 			otherinfo = cursor.getString(11);
 			degree = cursor.getString(12);
 		}
+		db.close();
 		cursor.close();
+		return count;
+	}
+	
+	public int FetchRCard(SQLiteDatabase db, String email)
+	{
+		//SQLiteDatabase reader = dbHelper.getReadableDatabase();
+		String whereClause = SQLiteDBHelper.RCARDS_EMAIL + "= ?";
+		String[] whereArgs = { email };
+		Cursor cursor;
+		int count;
+		cursor = db.query(SQLiteDBHelper.TABLE_RCARDS, new String[] { SQLiteDBHelper.RCARDS_NAME , 
+				                                                         SQLiteDBHelper.RCARDS_PHONE, 
+				                                                         SQLiteDBHelper.RCARDS_EMAIL, 
+				                                                         SQLiteDBHelper.RCARDS_PRIMARY_SKILLS, 
+				                                                         SQLiteDBHelper.RCARDS_ANDROID_EXP, 
+				                                                         SQLiteDBHelper.RCARDS_IOS_EXP, 
+				                                                         SQLiteDBHelper.RCARDS_PORTFOLIO_ANDROID, 
+				                                                         SQLiteDBHelper.RCARDS_PORTFOLIO_IOS, 
+				                                                         SQLiteDBHelper.RCARDS_PORTFOLIO_OTHER, 
+				                                                         SQLiteDBHelper.RCARDS_LINKEDIN_URL, 
+				                                                         SQLiteDBHelper.RCARDS_RESUME_URL, 
+				                                                         SQLiteDBHelper.RCARDS_HIGHEST_DEGREE, 
+				                                                         SQLiteDBHelper.RCARDS_OTHER_INFO}, 
+				                                                         whereClause, whereArgs, null, null, null);
+		count = cursor.getCount();
+		if(count > 0) {
+			cursor.moveToFirst();
+			name = cursor.getString(0);
+			phone = cursor.getString(1);
+			email = cursor.getString(2);
+			primaryskills = cursor.getString(3);
+			androidexp = cursor.getInt(4);
+			iosexp = cursor.getInt(5);
+			andurl = cursor.getString(6);
+			iosurl = cursor.getString(7);
+			othurl = cursor.getString(8);
+			linkurl = cursor.getString(9);
+			resumeurl = cursor.getString(10);
+			otherinfo = cursor.getString(11);
+			degree = cursor.getString(12);
+		}
+		db.close();
+		cursor.close();
+		return count;
 	}
 	
 //	public void UpdateField(String key, String value)

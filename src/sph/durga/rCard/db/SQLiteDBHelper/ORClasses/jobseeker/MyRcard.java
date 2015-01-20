@@ -109,8 +109,8 @@ public class MyRcard
 				                                                         SQLiteDBHelper.MYRCARD_HIGHEST_DEGREE, 
 				                                                         SQLiteDBHelper.MYRCARD_OTHER_INFO}, 
 				                                                         null, null, null, null, null);
-		cursor.moveToFirst();
-		if(cursor.getCount() > 0) {
+		if(cursor.getCount() == 1) {
+			cursor.moveToFirst();
 			name = cursor.getString(0);
 			phone = cursor.getString(1);
 			email = cursor.getString(2);
@@ -125,6 +125,7 @@ public class MyRcard
 			otherinfo = cursor.getString(11);
 			degree = cursor.getString(12);
 		}
+		reader.close();
 		cursor.close();
 	}
 	
@@ -164,6 +165,7 @@ public class MyRcard
 			otherinfo = cursor.getString(11);
 			degree = cursor.getString(12);
 		}
+		reader.close();
 		cursor.close();
 	}
 	

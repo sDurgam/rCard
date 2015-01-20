@@ -40,7 +40,7 @@ public class DisplayComapaniesActivity extends BaseActivity
 	
 	public void addCompanyBtn(View view)
 	{
-		Intent in = new Intent(this, SendRcardActivity.class);
+		Intent in = new Intent(this, SaveCompanyInfoActivity.class);
 		startActivity(in);
 	}
 }
