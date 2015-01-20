@@ -17,4 +17,5 @@ public interface Constants {
     public static final String TOAST = "toast";
     public static final String jobseeker = "jobseeker";
     public static final String recruiter = "recruiter";
+    public static enum jobseeker_priority {low, medium, high};
 }

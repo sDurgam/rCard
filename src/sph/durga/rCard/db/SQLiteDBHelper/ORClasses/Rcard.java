@@ -128,6 +128,45 @@ public class Rcard
 		cursor.close();
 	}
 	
+	public void FetchRCard(String email)
+	{
+		SQLiteDatabase reader = dbHelper.getReadableDatabase();
+		String whereClause = SQLiteDBHelper.RCARD_EMAIL + "= ?";
+		String[] whereArgs = { email };
+		Cursor cursor;
+		cursor = reader.query(SQLiteDBHelper.TABLE_RCARD, new String[] { SQLiteDBHelper.RCARD_NAME , 
+				                                                         SQLiteDBHelper.RCARD_PHONE, 
+				                                                         SQLiteDBHelper.RCARD_EMAIL, 
+				                                                         SQLiteDBHelper.RCARD_PRIMARY_SKILLS, 
+				                                                         SQLiteDBHelper.RCARD_ANDROID_EXP, 
+				                                                         SQLiteDBHelper.RCARD_IOS_EXP, 
+				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_ANDROID, 
+				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_IOS, 
+				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_OTHER, 
+				                                                         SQLiteDBHelper.RCARD_LINKEDIN_URL, 
+				                                                         SQLiteDBHelper.RCARD_RESUME_URL, 
+				                                                         SQLiteDBHelper.RCARD_HIGHEST_DEGREE, 
+				                                                         SQLiteDBHelper.RCARD_OTHER_INFO}, 
+				                                                         whereClause, whereArgs, null, null, null);
+		cursor.moveToFirst();
+		if(cursor.getCount() > 0) {
+			name = cursor.getString(0);
+			phone = cursor.getString(1);
+			email = cursor.getString(2);
+			primaryskills = cursor.getString(3);
+			androidexp = cursor.getInt(4);
+			iosexp = cursor.getInt(5);
+			andurl = cursor.getString(6);
+			iosurl = cursor.getString(7);
+			othurl = cursor.getString(8);
+			linkurl = cursor.getString(9);
+			resumeurl = cursor.getString(10);
+			otherinfo = cursor.getString(11);
+			degree = cursor.getString(12);
+		}
+		cursor.close();
+	}
+	
 //	public void UpdateField(String key, String value)
 //	{
 //		SQLiteDatabase writer = dbHelper.getWritableDatabase();
@@ -147,7 +186,7 @@ public class Rcard
 //		writer.close();
 //	}
 
-	public long saveAll(String name, String phone, String email,
+	public long saveRcard(String name, String phone, String email,
 			String primaryskills, String androidexp, String iosexp,
 			String andurl, String iosurl, String othurl, String linkurl,
 			String resumeurl, String highestdegree, String otherinfo) 

@@ -3,20 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-  <TextView
-        android:id="@+id/CompaniesLbl"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.10"
-        android:text="@string/companies_list_str" 
-        android:textSize="@android:style/TextAppearance.Large"
-        android:layout_gravity="center" />
+<!--   <TextView -->
+<!--         android:id="@+id/CompaniesLblTxt" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="0dp" -->
+<!--         android:layout_weight="0.10" -->
+<!--         android:text="@string/companies_list_str"  -->
+<!--         android:textSize="@android:style/TextAppearance.Large" -->
+<!--         android:layout_gravity="center" /> -->
     <GridView
         android:id="@+id/comapniesListGrid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.80"
-        android:numColumns="2"
+        android:numColumns="auto_fit"
         android:scrollbars="vertical">
 
     </GridView>
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.10"
-        android:text="Add"
+        android:text="@string/add"
         android:onClick="addCompanyBtn"
         android:layout_gravity="center" />
 

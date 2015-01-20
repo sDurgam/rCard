@@ -1,5 +1,6 @@
 package sph.durga.rCard.jobseeker;
 
+import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
@@ -13,9 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class ReviewRcardActivity extends FragmentActivity
+public class ReviewRcardActivity extends BaseActivity
 {
-	SQLiteDBHelper dbHelper;
 	Rcard rcardObj;
 	EditText nameTxt;
 	EditText phoneTxt;
@@ -59,19 +59,10 @@ public class ReviewRcardActivity extends FragmentActivity
 	protected void onResume()
 	{
 		super.onResume();
-		dbHelper = new SQLiteDBHelper(this);
 		rcardObj = new Rcard(dbHelper);
 		rcardObj.FetchRCard();
 		populateRCard();
 	}
-
-	@Override
-	protected void onPause() 
-	{
-		super.onPause();
-		dbHelper.close();
-	}
-
 
 	private void PopulateSpinners() 
 	{
@@ -278,7 +269,7 @@ public class ReviewRcardActivity extends FragmentActivity
 		String resumeurl = resumeTxt.getText().toString();
 		String otherinfo = otherinfoTxt.getText().toString();
 		String degree = degreeTxt.getText().toString();
-		long result = rcardObj.saveAll(name, phone, email, primaryskills, androidexp, iosexp, andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
+		long result = rcardObj.saveRcard(name, phone, email, primaryskills, androidexp, iosexp, andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
 		if(result != -1)
 		{
 			isEmailUpdated = true;

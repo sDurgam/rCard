@@ -56,6 +56,18 @@ public class SQLiteDBHelper extends SQLiteOpenHelper
 	public static final String COMPANY_OTHER_INFO = "info";
 	public static final String COMPANY_RCARD_SENT = "rcard_sent";
 	
+	//RcardLookup table for recruiters
+	public static final String TABLE_RCARDLOOKUP = "rcardlookup";
+	
+	//RcardLookup columns
+	public static final String RCARDLOOKUP_ID = "id";
+	public static final String RCARDLOOKUP_NAME = "name";
+	public static final String RCARDLOOKUP_PRIORITY = "priority";
+	public static final String RCARDLOOKUP_EMAIL = "email";
+	
+	String CREATE_RCARD_TABLE = String.format("CREATE TABLE %s (%s TEXT NOT NULL, %s TEXT, %s TEXT PRIMARY KEY NOT NULL, %s TEXT NOT NULL, %s INTEGER NOT NULL, %s INTEGER NOT NULL,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT)", TABLE_RCARD, RCARD_NAME , RCARD_PHONE, RCARD_EMAIL, RCARD_PRIMARY_SKILLS, RCARD_ANDROID_EXP, RCARD_IOS_EXP, RCARD_PORTFOLIO_ANDROID, RCARD_PORTFOLIO_IOS, RCARD_PORTFOLIO_OTHER, RCARD_LINKEDIN_URL, RCARD_RESUME_URL, RCARD_HIGHEST_DEGREE, RCARD_OTHER_INFO);
+	
+	
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
@@ -79,16 +91,31 @@ public class SQLiteDBHelper extends SQLiteOpenHelper
 	
 	public void CreateJobSeekerTables(SQLiteDatabase db)
 	{
-		ContentValues cv = new ContentValues();
-		cv.put(KEY_CATEGORY, 1);
-		db.update(TABLE_USER, cv, null, null);
+		
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RCARD);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMPANY);
-		String CREATE_RCARD_TABLE = String.format("CREATE TABLE %s (%s TEXT NOT NULL, %s TEXT, %s TEXT PRIMARY KEY NOT NULL, %s TEXT NOT NULL, %s INTEGER NOT NULL, %s INTEGER NOT NULL,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT,  %s TEXT)", TABLE_RCARD, RCARD_NAME , RCARD_PHONE, RCARD_EMAIL, RCARD_PRIMARY_SKILLS, RCARD_ANDROID_EXP, RCARD_IOS_EXP, RCARD_PORTFOLIO_ANDROID, RCARD_PORTFOLIO_IOS, RCARD_PORTFOLIO_OTHER, RCARD_LINKEDIN_URL, RCARD_RESUME_URL, RCARD_HIGHEST_DEGREE, RCARD_OTHER_INFO);
-		db.execSQL(CREATE_RCARD_TABLE);
 		String CREATE_COMPANY_TABLE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s TEXT NOT NULL, %s TEXT NOT NULL, %s TEXT NOT NULL, %s TEXT, %s BOOLEAN  DEFAULT 0)", TABLE_COMPANY, COMPANY_ID, COMPANY_NAME, COMPANY_CONTACT_NAME, COMPANY_EMAIL, COMPANY_OTHER_INFO, COMPANY_RCARD_SENT);
+		db.execSQL(CREATE_RCARD_TABLE);
 		db.execSQL(CREATE_COMPANY_TABLE);
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_CATEGORY, 1);	//update user as jobseeker
+		db.update(TABLE_USER, cv, null, null);
 	}
+	
+	public void CreateRecruiterTables(SQLiteDatabase db)
+	{
+		
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RCARD);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RCARDLOOKUP);
+		db.execSQL(CREATE_RCARD_TABLE);
+		//create rcard lookup table
+		String CREATE_RCARDLOOKUP_TABLE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s TEXT NOT NULL, %s INTEGER, %s TEXT NOT NULL, FOREIGN KEY (%s) REFERENCES %s (%s))", TABLE_RCARDLOOKUP, RCARDLOOKUP_ID, RCARDLOOKUP_NAME, RCARDLOOKUP_PRIORITY, RCARDLOOKUP_EMAIL, RCARDLOOKUP_EMAIL, TABLE_RCARD, RCARD_EMAIL); 
+		db.execSQL(CREATE_RCARDLOOKUP_TABLE);
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_CATEGORY, 2); //update user as recruiter
+		db.update(TABLE_USER, cv, null, null);
+	}
+	
 	
 	//by default -1 for user category
 	private void InsertUserTable(SQLiteDatabase db)

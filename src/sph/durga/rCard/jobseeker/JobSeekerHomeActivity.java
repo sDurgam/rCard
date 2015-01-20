@@ -23,7 +23,12 @@ public class JobSeekerHomeActivity  extends FragmentActivity
 	
 	public void SendRcardClick(View view)
 	{
-		Intent in = new Intent(this, SendRcardActivity.class);
+		Intent in = new Intent(this, DisplayComapaniesActivity.class);
 		startActivity(in);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
 	}
 }

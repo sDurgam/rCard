@@ -2,11 +2,14 @@
 <resources>
     <string name="app_name">rCard</string>
     <string name="companies_list_str">Company List</string>
+    <string name="displayrcards">List rCards</string>
+    <string name="add">Add</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="conname">Contact Name</string>
     <string name="otherinfo">Other Info</string>
      <string name="sendrcard">Send Rcard</string>
+     <string name="savecompanyinfo">Save Info</string>
     <string name="home_msg">Send Resume</string>
     <string name="send_bluetooth">Send using Bluetooth</string>
      <string name="send_nfc">Send using NFC</string>
