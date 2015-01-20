@@ -1,11 +1,11 @@
-package sph.durga.rCard.db.SQLiteDBHelper.ORClasses;
+package sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker;
 
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class Rcard 
+public class MyRcard 
 {
 	SQLiteDBHelper dbHelper;
 	String name = "";
@@ -81,7 +81,7 @@ public class Rcard
 		return degree;
 	}
 
-	public Rcard(SQLiteDBHelper dbhelper)
+	public MyRcard(SQLiteDBHelper dbhelper)
 	{
 		dbHelper = dbhelper;
 	}
@@ -95,19 +95,19 @@ public class Rcard
 	{
 		SQLiteDatabase reader = dbHelper.getReadableDatabase();
 		Cursor cursor;
-		cursor = reader.query(SQLiteDBHelper.TABLE_RCARD, new String[] { SQLiteDBHelper.RCARD_NAME , 
-				                                                         SQLiteDBHelper.RCARD_PHONE, 
-				                                                         SQLiteDBHelper.RCARD_EMAIL, 
-				                                                         SQLiteDBHelper.RCARD_PRIMARY_SKILLS, 
-				                                                         SQLiteDBHelper.RCARD_ANDROID_EXP, 
-				                                                         SQLiteDBHelper.RCARD_IOS_EXP, 
-				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_ANDROID, 
-				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_IOS, 
-				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_OTHER, 
-				                                                         SQLiteDBHelper.RCARD_LINKEDIN_URL, 
-				                                                         SQLiteDBHelper.RCARD_RESUME_URL, 
-				                                                         SQLiteDBHelper.RCARD_HIGHEST_DEGREE, 
-				                                                         SQLiteDBHelper.RCARD_OTHER_INFO}, 
+		cursor = reader.query(SQLiteDBHelper.TABLE_MYRCARD, new String[] { SQLiteDBHelper.MYRCARD_NAME , 
+				                                                         SQLiteDBHelper.MYRCARD_PHONE, 
+				                                                         SQLiteDBHelper.MYRCARD_EMAIL, 
+				                                                         SQLiteDBHelper.MYRCARD_PRIMARY_SKILLS, 
+				                                                         SQLiteDBHelper.MYRCARD_ANDROID_EXP, 
+				                                                         SQLiteDBHelper.MYRCARD_IOS_EXP, 
+				                                                         SQLiteDBHelper.MYRCARD_PORTFOLIO_ANDROID, 
+				                                                         SQLiteDBHelper.MYRCARD_PORTFOLIO_IOS, 
+				                                                         SQLiteDBHelper.MYRCARD_PORTFOLIO_OTHER, 
+				                                                         SQLiteDBHelper.MYRCARD_LINKEDIN_URL, 
+				                                                         SQLiteDBHelper.MYRCARD_RESUME_URL, 
+				                                                         SQLiteDBHelper.MYRCARD_HIGHEST_DEGREE, 
+				                                                         SQLiteDBHelper.MYRCARD_OTHER_INFO}, 
 				                                                         null, null, null, null, null);
 		cursor.moveToFirst();
 		if(cursor.getCount() > 0) {
@@ -131,22 +131,22 @@ public class Rcard
 	public void FetchRCard(String email)
 	{
 		SQLiteDatabase reader = dbHelper.getReadableDatabase();
-		String whereClause = SQLiteDBHelper.RCARD_EMAIL + "= ?";
+		String whereClause = SQLiteDBHelper.MYRCARD_EMAIL + "= ?";
 		String[] whereArgs = { email };
 		Cursor cursor;
-		cursor = reader.query(SQLiteDBHelper.TABLE_RCARD, new String[] { SQLiteDBHelper.RCARD_NAME , 
-				                                                         SQLiteDBHelper.RCARD_PHONE, 
-				                                                         SQLiteDBHelper.RCARD_EMAIL, 
-				                                                         SQLiteDBHelper.RCARD_PRIMARY_SKILLS, 
-				                                                         SQLiteDBHelper.RCARD_ANDROID_EXP, 
-				                                                         SQLiteDBHelper.RCARD_IOS_EXP, 
-				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_ANDROID, 
-				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_IOS, 
-				                                                         SQLiteDBHelper.RCARD_PORTFOLIO_OTHER, 
-				                                                         SQLiteDBHelper.RCARD_LINKEDIN_URL, 
-				                                                         SQLiteDBHelper.RCARD_RESUME_URL, 
-				                                                         SQLiteDBHelper.RCARD_HIGHEST_DEGREE, 
-				                                                         SQLiteDBHelper.RCARD_OTHER_INFO}, 
+		cursor = reader.query(SQLiteDBHelper.TABLE_MYRCARD, new String[] { SQLiteDBHelper.MYRCARD_NAME , 
+				                                                         SQLiteDBHelper.MYRCARD_PHONE, 
+				                                                         SQLiteDBHelper.MYRCARD_EMAIL, 
+				                                                         SQLiteDBHelper.MYRCARD_PRIMARY_SKILLS, 
+				                                                         SQLiteDBHelper.MYRCARD_ANDROID_EXP, 
+				                                                         SQLiteDBHelper.MYRCARD_IOS_EXP, 
+				                                                         SQLiteDBHelper.MYRCARD_PORTFOLIO_ANDROID, 
+				                                                         SQLiteDBHelper.MYRCARD_PORTFOLIO_IOS, 
+				                                                         SQLiteDBHelper.MYRCARD_PORTFOLIO_OTHER, 
+				                                                         SQLiteDBHelper.MYRCARD_LINKEDIN_URL, 
+				                                                         SQLiteDBHelper.MYRCARD_RESUME_URL, 
+				                                                         SQLiteDBHelper.MYRCARD_HIGHEST_DEGREE, 
+				                                                         SQLiteDBHelper.MYRCARD_OTHER_INFO}, 
 				                                                         whereClause, whereArgs, null, null, null);
 		cursor.moveToFirst();
 		if(cursor.getCount() > 0) {
@@ -187,27 +187,27 @@ public class Rcard
 //	}
 
 	public long saveRcard(String name, String phone, String email,
-			String primaryskills, String androidexp, String iosexp,
+			String primaryskills, int androidexp2, int iosexp2,
 			String andurl, String iosurl, String othurl, String linkurl,
 			String resumeurl, String highestdegree, String otherinfo) 
 	{
 		SQLiteDatabase writer = dbHelper.getWritableDatabase();
 		ContentValues cv = new ContentValues();
-		cv.put(SQLiteDBHelper.RCARD_EMAIL, email);
-		cv.put(SQLiteDBHelper.RCARD_NAME, name);
-		cv.put(SQLiteDBHelper.RCARD_PHONE, phone);
-		cv.put(SQLiteDBHelper.RCARD_PRIMARY_SKILLS, primaryskills);
-		cv.put(SQLiteDBHelper.RCARD_ANDROID_EXP, androidexp);
-		cv.put(SQLiteDBHelper.RCARD_IOS_EXP, iosexp);
-		cv.put(SQLiteDBHelper.RCARD_PORTFOLIO_ANDROID, andurl);
-		cv.put(SQLiteDBHelper.RCARD_PORTFOLIO_IOS, iosurl);
-		cv.put(SQLiteDBHelper.RCARD_PORTFOLIO_OTHER, othurl);
-		cv.put(SQLiteDBHelper.RCARD_LINKEDIN_URL, linkurl);
-		cv.put(SQLiteDBHelper.RCARD_RESUME_URL, resumeurl);
-		cv.put(SQLiteDBHelper.RCARD_HIGHEST_DEGREE, highestdegree);
-		cv.put(SQLiteDBHelper.RCARD_OTHER_INFO, otherinfo);
-		writer.delete(SQLiteDBHelper.TABLE_RCARD, null, null);
-		long result = writer.insert(SQLiteDBHelper.TABLE_RCARD, null, cv);
+		cv.put(SQLiteDBHelper.MYRCARD_EMAIL, email);
+		cv.put(SQLiteDBHelper.MYRCARD_NAME, name);
+		cv.put(SQLiteDBHelper.MYRCARD_PHONE, phone);
+		cv.put(SQLiteDBHelper.MYRCARD_PRIMARY_SKILLS, primaryskills);
+		cv.put(SQLiteDBHelper.MYRCARD_ANDROID_EXP, androidexp2);
+		cv.put(SQLiteDBHelper.MYRCARD_IOS_EXP, iosexp2);
+		cv.put(SQLiteDBHelper.MYRCARD_PORTFOLIO_ANDROID, andurl);
+		cv.put(SQLiteDBHelper.MYRCARD_PORTFOLIO_IOS, iosurl);
+		cv.put(SQLiteDBHelper.MYRCARD_PORTFOLIO_OTHER, othurl);
+		cv.put(SQLiteDBHelper.MYRCARD_LINKEDIN_URL, linkurl);
+		cv.put(SQLiteDBHelper.MYRCARD_RESUME_URL, resumeurl);
+		cv.put(SQLiteDBHelper.MYRCARD_HIGHEST_DEGREE, highestdegree);
+		cv.put(SQLiteDBHelper.MYRCARD_OTHER_INFO, otherinfo);
+		writer.delete(SQLiteDBHelper.TABLE_MYRCARD, null, null);
+		long result = writer.insert(SQLiteDBHelper.TABLE_MYRCARD, null, cv);
 		writer.close();
 		return result;
 	}

@@ -4,7 +4,7 @@ import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
-import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.Rcard;
+import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.MyRcard;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class ReviewRcardActivity extends BaseActivity
 {
-	Rcard rcardObj;
+	MyRcard rcardObj;
 	EditText nameTxt;
 	EditText phoneTxt;
 	EditText emailTxt;
@@ -59,7 +59,7 @@ public class ReviewRcardActivity extends BaseActivity
 	protected void onResume()
 	{
 		super.onResume();
-		rcardObj = new Rcard(dbHelper);
+		rcardObj = new MyRcard(dbHelper);
 		rcardObj.FetchRCard();
 		populateRCard();
 	}
@@ -269,7 +269,7 @@ public class ReviewRcardActivity extends BaseActivity
 		String resumeurl = resumeTxt.getText().toString();
 		String otherinfo = otherinfoTxt.getText().toString();
 		String degree = degreeTxt.getText().toString();
-		long result = rcardObj.saveRcard(name, phone, email, primaryskills, androidexp, iosexp, andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
+		long result = rcardObj.saveRcard(name, phone, email, primaryskills, Integer.valueOf(androidexp), Integer.valueOf(iosexp), andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
 		if(result != -1)
 		{
 			isEmailUpdated = true;

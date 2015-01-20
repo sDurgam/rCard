@@ -24,4 +24,9 @@
         <item>Delete local Resume</item>
         <item >Build custom Resume</item>
     </string-array>
+    <string-array name="jobseeker_priority_array">
+        <item>low</item>
+        <item>medium</item>
+        <item>high</item>
+    </string-array>
 </resources>

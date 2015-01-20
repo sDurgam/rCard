@@ -4,18 +4,15 @@ import java.util.ArrayList;
 
 import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.R;
-import sph.durga.rCard.Utils.CompaniesListAdapter;
-import sph.durga.rCard.Utils.CompanyDisplay;
-import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.RcardLookUp;
+import sph.durga.rCard.Utils.recruiter.jobSeekerListAdapter;
+import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.recruiter.RCardsLookUp;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 public class RecruiterRcardListActivity extends BaseActivity
 {
-
 	GridView rCardGrid;
-	RcardLookUp rcardlookUpObj;
+	RCardsLookUp rcardlookUpObj;
 	ArrayList<String[]> rcardlookupList;
 	
 	@Override
@@ -29,7 +26,6 @@ public class RecruiterRcardListActivity extends BaseActivity
 	@Override
 	protected void onPause()
 	{
-		
 		super.onPause();
 	}
 
@@ -37,10 +33,9 @@ public class RecruiterRcardListActivity extends BaseActivity
 	protected void onResume() 
 	{
 		super.onResume();
-		rcardlookUpObj = new RcardLookUp(dbHelper);
+		rcardlookUpObj = new RCardsLookUp(dbHelper);
 		rcardlookupList =  rcardlookUpObj.FetchrCardLookupList();
-//		companiesListGrid.setAdapter(csadapter);
+		jobSeekerListAdapter adapter = new jobSeekerListAdapter(this, rcardlookupList, rcardlookUpObj);
+		rCardGrid.setAdapter(adapter);
 	}
-
-	
 }

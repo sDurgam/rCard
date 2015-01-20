@@ -2,10 +2,8 @@ package sph.durga.rCard.jobseeker;
 
 import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.R;
-import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
-import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.Companies;
+import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.Companies;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,15 +33,37 @@ public class SendRcardActivity extends BaseActivity
 		String contactname = companycontactTxt.getText().toString();
 		String email = companyemailTxt.getText().toString();
 		String otherinfo = companyotherInfoTxt.getText().toString();
+		int result;
 		if(!companyname.equals(""))
 		{
-			cmpObj.SaveCompany(companyname, contactname, email, otherinfo);
+			result = cmpObj.SaveCompany(companyname, contactname, email, otherinfo);
+			if(result == -1)
+			{
+				Toast.makeText(this, "company details could not be saved", Toast.LENGTH_LONG).show();
+			}
+			else
+			{
+				Toast.makeText(this, "company details successfully saved", Toast.LENGTH_LONG).show();
+			}
 		}
 		else
 		{
 			Toast.makeText(this, "please enter company name", Toast.LENGTH_LONG).show();
 		}
+	}
 
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		cmpObj = null;
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		cmpObj = new Companies(dbHelper);
 	}
 
 	public void saveCompanyInfoClick(View view)

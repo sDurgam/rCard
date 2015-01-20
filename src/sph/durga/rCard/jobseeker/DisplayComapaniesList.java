@@ -3,10 +3,10 @@ package sph.durga.rCard.jobseeker;
 import java.util.ArrayList;
 
 import sph.durga.rCard.R;
-import sph.durga.rCard.Utils.CompaniesListAdapter;
-import sph.durga.rCard.Utils.CompanyDisplay;
+import sph.durga.rCard.Utils.jobseeker.CompaniesListAdapter;
+import sph.durga.rCard.Utils.jobseeker.CompanyDisplay;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
-import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.Companies;
+import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.Companies;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.GridView;

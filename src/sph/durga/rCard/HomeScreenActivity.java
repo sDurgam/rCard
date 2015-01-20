@@ -23,29 +23,29 @@ public class HomeScreenActivity extends BaseActivity
 	protected void onResume() 
 	{
 		super.onResume();
-		dbHelper = new SQLiteDBHelper(this);
-		int category = GetUserCategory();
-		if(category == 1) //job seeker
-		{
-			JobSeekerActivity();
-		}
-		else if(category == 2) //recruiter
-		{
-			RecruiterActivity();
-		}
+//		dbHelper = new SQLiteDBHelper(this);
+//		int category = GetUserCategory();
+//		if(category == 1) //job seeker
+//		{
+//			JobSeekerActivity();
+//		}
+//		else if(category == 2) //recruiter
+//		{
+//			RecruiterActivity();
+//		}
 	}
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		dbHelper.close();
-	}
+//	@Override
+//	protected void onPause()
+//	{
+//		super.onPause();
+//		dbHelper.close();
+//	}
 	
-	private int GetUserCategory()
-	{
-		return dbHelper.GetUserCategory(dbHelper.getReadableDatabase());
-	}
+//	private int GetUserCategory()
+//	{
+//		return dbHelper.GetUserCategory(dbHelper.getReadableDatabase());
+//	}
 	
 	private void JobSeekerActivity()
 	{

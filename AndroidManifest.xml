@@ -36,6 +36,7 @@
         
         <activity android:name="sph.durga.rCard.recruiter.RecruiterHomeActivity"></activity>
          <activity android:name="sph.durga.rCard.recruiter.RecruiterRcardListActivity"></activity>
+         <activity android:name="sph.durga.rCard.recruiter.DisplaySelectedrCard"></activity>
     </application>
 
 </manifest>
