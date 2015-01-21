@@ -1,6 +1,7 @@
 package sph.durga.rCard.bluetooth;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,7 +26,7 @@ import android.os.Message;
 public class BluetoothService 
 {
 	private String BT_NAME = "sphdurgarCard";
-	private UUID BT_UUID = UUID.fromString("f05b4c80-9c41-11e4-bd06-0800200c9a66");
+	private UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	private Handler mHandler;
 
 	private final BluetoothAdapter mAdapter;
@@ -114,7 +115,7 @@ public class BluetoothService
 
 		public void run()
 		{
-			BluetoothSocket socket;
+			BluetoothSocket socket = null;
 
 			while(true)
 			{
@@ -146,13 +147,12 @@ public class BluetoothService
 					}
 					break;
 				}
-
-				// Reset the ConnectThread because we're done
+			}
+			if(socket != null) {
 				synchronized (BluetoothService.this)
 				{
 					mreceiverCardThread = null;
 				}
-				// Start the connected thread
 				ConnectedServerSocket(socket);
 			}
 		}
@@ -201,9 +201,24 @@ public class BluetoothService
 			{		
 				InputStream min;
 				min = mSocket.getInputStream();
-				BufferedReader mbReader;
-				mbReader = new BufferedReader(new InputStreamReader(min));
-				JSONObject jsonObj = new JSONObject(mbReader.readLine());
+				byte[] buffer = new byte[1024];
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				
+				while (min.available() > 0)
+				{
+					try 
+					{
+						int count = min.read(buffer);
+						out.write(buffer, 0, count);
+						
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				
+				JSONObject jsonObj = new JSONObject(out.toString());
+				
 				Message msg =  mHandler.obtainMessage(Constants.MESSAGE_RCARD_JSON_DATA);
 				Bundle bundle = new Bundle();
 				bundle.putString(Constants.RCARD_JSON_DATA, jsonObj.toString());
@@ -257,80 +272,47 @@ public class BluetoothService
 			mmDevice = device;
 			rCardjsonData = jsonData;
 			BluetoothSocket tmp = null;
-			// Get a BluetoothSocket for a connection with the
-			// given BluetoothDevice
-			// if (Build.VERSION.SDK_INT < 9) { // VK: Build.Version_Codes.GINGERBREAD is not accessible yet so using raw int value
-			// VK: 9 is the API Level integer value for Gingerbread
-			try
-			{
+			
+			try {
 				tmp = device.createRfcommSocketToServiceRecord(BT_UUID);
-			} catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			//   } 
-			//else 
-			//	            {
-			//	                Method m = null;
-			//	                try {
-			//	                    m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
-			//	                } catch (NoSuchMethodException e) 
-			//	                {
-			//	                    // TODO Auto-generated catch block
-			//	                    e.printStackTrace();
-			//	                }
-			//	                try {
-			//	                    tmp = (BluetoothSocket) m.invoke(device, (UUID) BT_UUID);
-			//	                } catch (IllegalAccessException e) {
-			//	                    // TODO Auto-generated catch block
-			//	                    e.printStackTrace();
-			//	                } catch (InvocationTargetException e) {
-			//	                    // TODO Auto-generated catch block
-			//	                    e.printStackTrace();
-			//	                }
-			//	            }
 			mmSocket = tmp;
 		}
 
 		public void run() 
 		{
 			mAdapter.cancelDiscovery();
-			try 
-			{
+			try {
 				mmSocket.connect();
 
-			} catch (IOException e)
-			{
-				// Close the socket
+			} catch (IOException e) {
 				try 
 				{
-				
-					mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(mmDevice,1);
+					mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] {UUID.class}).invoke(mmDevice, (UUID) BT_UUID);
 					mmSocket.connect();
-				} catch (IOException e2) 
+				} 
+				catch (IOException e2) 
 				{
-					try {
+					try 
+					{
 						mmSocket.close();
-					} catch (IOException e1)
+					} catch (IOException e1) 
 					{
 						e1.printStackTrace();
 					}
+					connectionFailed();
+					return;
 				} catch (IllegalArgumentException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IllegalAccessException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (InvocationTargetException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (NoSuchMethodException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				connectionFailed();
-				return;
+				}	
 			}
 			synchronized (BluetoothService.this)
 			{
@@ -405,26 +387,20 @@ public class BluetoothService
 
 		public void run() 
 		{
-			while (true) 
-			{
-				try
-				{
-					OutputStreamWriter out = new OutputStreamWriter(
-							mmOutStream);
-					out.write(rcardJSON.toString());
 
-					// Share the sent message back to the UI Activity
-					mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, rcardJSON)
-					.sendToTarget();
-					mmOutStream.close();
-				} 
-				catch (IOException e) 
-				{
-					connectionFailed();
-					// Start the service over to restart listening mode
-					BluetoothService.this.start();
-					break;
-				}
+			try
+			{
+				String stringToSend = rcardJSON.toString();
+				mmOutStream.write(stringToSend.getBytes());
+				mmOutStream.flush();
+				// Share the sent message back to the UI Activity
+				mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, rcardJSON).sendToTarget();
+			} 
+			catch (IOException e) 
+			{
+				connectionFailed();
+				// Start the service over to restart listening mode
+				BluetoothService.this.start();
 			}
 		}
 
@@ -433,6 +409,7 @@ public class BluetoothService
 			try 
 			{
 				mmSocket.close();
+				mmOutStream.close();
 			} catch (IOException e)
 			{
 				//Log.e(TAG, "close() of connect socket failed", e);
