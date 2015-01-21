@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
-import sph.durga.rCard.bluetooth.BluetoothService;
+import sph.durga.rCard.bluetooth.rCardService;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.recruiter.RCardsLookUp;
 import android.app.Activity;
@@ -66,7 +66,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 
 	}
 	BluetoothAdapter btAdapter;
-	BluetoothService btService ;
+	rCardService btService ;
 	public void receiverCardsClick(View view)
 	{
 		//enable bluetooth
@@ -113,7 +113,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 			// When DeviceListActivity returns with a device to connect
 			if (resultCode == Activity.RESULT_OK) 
 			{
-				btService = new BluetoothService(this, mHandler, Constants.sockettype.server);
+				btService = new rCardService(this, mHandler, Constants.sockettype.server);
 				btService.start();
 			}
 			break;
@@ -133,7 +133,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 	{
 		if (btService == null)
 		{
-			btService = new BluetoothService(this, mHandler, Constants.sockettype.server);
+			btService = new rCardService(this, mHandler, Constants.sockettype.server);
 		}
 		btService.start();
 	}
@@ -147,7 +147,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 			case Constants.MESSAGE_RCARD_JSON_DATA:
 				try 
 				{
-					String json = msg.obj.toString();
+					String json = msg.getData().toString();
 					JSONObject jsonObj = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
 					if(jsonObj != null)
 					{
@@ -176,6 +176,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 					e.printStackTrace();
 					Toast.makeText(mContext, Constants.message_rcards_received_notsaved, Toast.LENGTH_SHORT).show();
 				}
+				break;
 			case Constants.MESSAGE_TOAST:
 				if (null != mContext) {
 					Toast.makeText(mContext, msg.getData().getString(Constants.TOAST),

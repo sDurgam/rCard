@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
-import sph.durga.rCard.bluetooth.BluetoothService;
+import sph.durga.rCard.bluetooth.rCardService;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.Companies;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.MyRcard;
@@ -26,7 +26,7 @@ public class SendrCardActivity extends BaseActivity
 	private static final int REQUEST_ENABLE_BT = 1;
 
 	private BluetoothAdapter btAdapter;
-	private BluetoothService btService;
+	private rCardService btService;
 	private Context mContext;
 	private MyRcard myrcardObj;
 	private int companyId;
@@ -64,7 +64,7 @@ public class SendrCardActivity extends BaseActivity
 	{
 		if (btService == null)
 		{
-			btService = new BluetoothService(this, mHandler, Constants.sockettype.client);
+			btService = new rCardService(this, mHandler, Constants.sockettype.client);
 		}
 		Intent serverIntent = new Intent(this, ListDevicesActivity.class);
 		startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
@@ -167,7 +167,7 @@ public class SendrCardActivity extends BaseActivity
 			{
 			case Constants.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
-				mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
+				mConnectedDeviceName =  msg.getData().getString(Constants.DEVICE_NAME);
 				if (null != mContext) {
 					Toast.makeText(mContext, "Connected to "
 							+ mConnectedDeviceName, Toast.LENGTH_SHORT).show();
@@ -175,7 +175,7 @@ public class SendrCardActivity extends BaseActivity
 				break;
 			case Constants.MESSAGE_TOAST:
 				if (null != mContext) {
-					Toast.makeText(mContext, msg.getData().getString(Constants.TOAST),
+					Toast.makeText(mContext,  msg.getData().getString(Constants.TOAST),
 							Toast.LENGTH_SHORT).show();
 				}
 				break;

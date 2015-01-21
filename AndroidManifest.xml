@@ -31,7 +31,7 @@
         <activity android:name="sph.durga.rCard.jobseeker.DisplayComapaniesActivity"></activity>
         <activity android:name="sph.durga.rCard.jobseeker.SaveCompanyInfoActivity"></activity>
         <activity android:name="sph.durga.rCard.jobseeker.ListDevicesActivity" android:theme="@android:style/Theme.Dialog"></activity>
-        <activity android:name="sph.durga.rCard.jobseeker.SendrCardActivity"></activity>
+<!--         <activity android:name="sph.durga.rCard.jobseeker.SendrCardActivity"></activity> -->
         <activity android:name="sph.durga.rCard.recruiter.RecruiterHomeActivity"></activity>
          <activity android:name="sph.durga.rCard.recruiter.RecruiterRcardListActivity"></activity>
          <activity android:name="sph.durga.rCard.recruiter.DisplaySelectedrCard"></activity>
