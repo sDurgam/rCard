@@ -21,7 +21,6 @@
     <string name="linkedin_url">LinkedIn</string>
     <string name="resume_url">Resume URL</string>
     <string name="highest_degree">Highest Degree</string>
-
     <string name="other_info">Other Info</string>
     <string name="save_rcard">Save rCard</string>
     <string name="conname">Contact Name</string>
@@ -41,6 +40,11 @@
         <item>Send local Resume via app</item>
         <item>Delete local Resume</item>
         <item >Build custom Resume</item>
+    </string-array>
+    <string-array name="jobseeker_priority_array">
+        <item>low</item>
+        <item>medium</item>
+        <item>high</item>
     </string-array>
 <!--     <string name = "email">Email *</string>
  -->    

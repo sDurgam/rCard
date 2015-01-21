@@ -32,6 +32,4 @@ public class BaseActivity extends FragmentActivity {
 		super.onBackPressed();
 	}
 	
-	
-	
 }

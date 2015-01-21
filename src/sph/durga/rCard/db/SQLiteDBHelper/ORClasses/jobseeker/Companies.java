@@ -1,11 +1,11 @@
-package sph.durga.rCard.db.SQLiteDBHelper.ORClasses;
+package sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker;
 
 import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import sph.durga.rCard.Utils.CompanyDisplay;
+import sph.durga.rCard.Utils.jobseeker.CompanyDisplay;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 
 public class Companies
@@ -23,7 +23,7 @@ public class Companies
 		int rcardSentInt;
 		boolean isrcardSent;
 		SQLiteDatabase reader = dbHelper.getReadableDatabase();
-		Cursor cursor = reader.query(SQLiteDBHelper.TABLE_COMPANY, new String[] { SQLiteDBHelper.COMPANY_NAME, SQLiteDBHelper.COMPANY_RCARD_SENT}, null, null, null, null, null);
+		Cursor cursor = reader.query(SQLiteDBHelper.TABLE_COMPANY, new String[] { SQLiteDBHelper.COMPANY_NAME, SQLiteDBHelper.COMPANY_MYRCARD_SENT}, null, null, null, null, null);
 		if(cursor.getCount() > 0)
 		{
 			cursor.moveToFirst();
@@ -44,17 +44,18 @@ public class Companies
 				companiesList.add(cmpDisplayObj);
 			}while(cursor.moveToNext());
 		}
-		cursor.close();
 		reader.close();
+		cursor.close();
 		return companiesList;
 	}
 
 
 	private boolean GetCompany(SQLiteDatabase db,  String name, String whereClause, String[] whereArgs)
 	{
-		Cursor cursor = db.query(SQLiteDBHelper.TABLE_COMPANY, new String[] { SQLiteDBHelper.COMPANY_NAME, SQLiteDBHelper.COMPANY_RCARD_SENT}, whereClause, whereArgs, null, null, null);
+		Cursor cursor = db.query(SQLiteDBHelper.TABLE_COMPANY, new String[] { SQLiteDBHelper.COMPANY_NAME, SQLiteDBHelper.COMPANY_MYRCARD_SENT}, whereClause, whereArgs, null, null, null);
 		if(cursor.getCount() > 0)
 		{
+			cursor.close();
 			//update
 			return true;
 		}
@@ -63,11 +64,11 @@ public class Companies
 			//insert
 			return false;
 		}
-
 	}
 
-	public void SaveCompany(String name, String contactname, String email, String otherInfo)
+	public int SaveCompany(String name, String contactname, String email, String otherInfo)
 	{
+		int result;
 		SQLiteDatabase writer = dbHelper.getWritableDatabase();
 		String whereClause = SQLiteDBHelper.COMPANY_NAME + "= ?";
 		String[] whereArgs = { name };
@@ -78,14 +79,15 @@ public class Companies
 		if(GetCompany(writer, name, whereClause, whereArgs))
 		{
 			//update
-			writer.update(SQLiteDBHelper.TABLE_COMPANY, values, whereClause, whereArgs);
+			result = writer.update(SQLiteDBHelper.TABLE_COMPANY, values, whereClause, whereArgs);
 		}
 		else
 		{
 			//insert
 			values.put(SQLiteDBHelper.COMPANY_NAME, name);
-			writer.insert(SQLiteDBHelper.TABLE_COMPANY, null, values);
+			result = (int) writer.insert(SQLiteDBHelper.TABLE_COMPANY, null, values);
 		}
 		writer.close();
+		return result;
 	}
 }

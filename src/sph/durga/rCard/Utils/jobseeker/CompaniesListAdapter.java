@@ -1,4 +1,4 @@
-package sph.durga.rCard.Utils;
+package sph.durga.rCard.Utils.jobseeker;
 
 import java.util.ArrayList;
 
