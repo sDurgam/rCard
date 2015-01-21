@@ -8,12 +8,14 @@
         android:layout_weight="0.80"
         android:layout_height="wrap_content"
         android:text="TextView" />
-      <TextView
-        android:id="@+id/RcardSent"
+     
+      <CheckBox
+        android:id="@+id/RcardSentCBox"
          android:layout_width="0dp"
         android:layout_weight="0.20"
         android:layout_height="wrap_content"
-        android:text="Yes" />
+        android:text="Yes"
+        android:enabled="false" />
     
 
 </LinearLayout>

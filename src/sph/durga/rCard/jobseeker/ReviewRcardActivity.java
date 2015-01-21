@@ -30,7 +30,6 @@ public class ReviewRcardActivity extends BaseActivity
 	EditText resumeTxt;
 	EditText degreeTxt;
 	EditText otherinfoTxt;
-	boolean isEmailUpdated = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -104,7 +103,11 @@ public class ReviewRcardActivity extends BaseActivity
 		long result = rcardObj.saveRcard(name, phone, email, primaryskills, Integer.valueOf(androidexp), Integer.valueOf(iosexp), andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
 		if(result != -1)
 		{
-			isEmailUpdated = true;
+			Toast.makeText(this, Constants.message_mycard_save_success, Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			Toast.makeText(this, Constants.message_mycard_save_failed, Toast.LENGTH_SHORT).show();
 		}
 	}
 	

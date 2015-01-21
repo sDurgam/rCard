@@ -16,8 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.80"
-        android:numColumns="auto_fit"
-        android:scrollbars="vertical">
+        android:scrollbarAlwaysDrawHorizontalTrack="true"  
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="horizontal|vertical">
 
     </GridView>
 

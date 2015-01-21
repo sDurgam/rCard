@@ -25,11 +25,12 @@ import android.os.Message;
 public class BluetoothService 
 {
 	private String BT_NAME = "sphdurgarCard";
-	private UUID BT_UUID = UUID.fromString("f05b4c80-9c41-11e4-bd06-0800200c9a66");
+	//private UUID BT_UUID = UUID.fromString("f05b4c80-9c41-11e4-bd06-0800200c9a66");
+	private UUID BT_UUID = UUID.fromString( "00001101-0000-1000-8000-00805F9B34FB");
 	private Handler mHandler;
 
 	private final BluetoothAdapter mAdapter;
-	Constants.sockettype socketType;
+	Constants.sockettype socketType; 
 	AcceptThread mAcceptThread;
 	ReceiverCardThread mreceiverCardThread;
 	ConnectThread mConnectThread;
@@ -114,7 +115,7 @@ public class BluetoothService
 
 		public void run()
 		{
-			BluetoothSocket socket;
+			BluetoothSocket socket = null;
 
 			while(true)
 			{
@@ -146,8 +147,10 @@ public class BluetoothService
 					}
 					break;
 				}
-
-				// Reset the ConnectThread because we're done
+			}
+			// Reset the ConnectThread because we're done
+			if(socket != null)
+			{
 				synchronized (BluetoothService.this)
 				{
 					mreceiverCardThread = null;
@@ -203,12 +206,14 @@ public class BluetoothService
 				min = mSocket.getInputStream();
 				BufferedReader mbReader;
 				mbReader = new BufferedReader(new InputStreamReader(min));
-				JSONObject jsonObj = new JSONObject(mbReader.readLine());
+				String jsonString = mbReader.readLine(); 
+				JSONObject jsonObj = new JSONObject(jsonString);
 				Message msg =  mHandler.obtainMessage(Constants.MESSAGE_RCARD_JSON_DATA);
 				Bundle bundle = new Bundle();
 				bundle.putString(Constants.RCARD_JSON_DATA, jsonObj.toString());
 				msg.setData(bundle);
 				mHandler.sendMessage(msg);
+				mbReader.close();
 				min.close();
 			}
 			catch (IOException e) 
@@ -218,7 +223,7 @@ public class BluetoothService
 			{
 				e.printStackTrace();
 			}	
-			
+
 		}
 
 		public void cancel()
@@ -305,8 +310,7 @@ public class BluetoothService
 				// Close the socket
 				try 
 				{
-				
-					mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(mmDevice,1);
+					mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] {UUID.class}).invoke(mmDevice,(UUID) BT_UUID);
 					mmSocket.connect();
 				} catch (IOException e2) 
 				{
@@ -316,6 +320,8 @@ public class BluetoothService
 					{
 						e1.printStackTrace();
 					}
+					connectionFailed();
+					return;
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -329,8 +335,7 @@ public class BluetoothService
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				connectionFailed();
-				return;
+
 			}
 			synchronized (BluetoothService.this)
 			{
@@ -405,26 +410,22 @@ public class BluetoothService
 
 		public void run() 
 		{
-			while (true) 
+			try
 			{
-				try
-				{
-					OutputStreamWriter out = new OutputStreamWriter(
-							mmOutStream);
-					out.write(rcardJSON.toString());
+				OutputStreamWriter out = new OutputStreamWriter(
+						mmOutStream);
+				out.write(rcardJSON.toString());
 
-					// Share the sent message back to the UI Activity
-					mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, rcardJSON)
-					.sendToTarget();
-					mmOutStream.close();
-				} 
-				catch (IOException e) 
-				{
-					connectionFailed();
-					// Start the service over to restart listening mode
-					BluetoothService.this.start();
-					break;
-				}
+				// Share the sent message back to the UI Activity
+				mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, rcardJSON)
+				.sendToTarget();
+				mmOutStream.close();
+			} 
+			catch (IOException e) 
+			{
+				connectionFailed();
+				// Start the service over to restart listening mode
+				BluetoothService.this.start();
 			}
 		}
 

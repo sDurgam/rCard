@@ -8,6 +8,7 @@ import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
 import sph.durga.rCard.bluetooth.BluetoothService;
 import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
+import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.Companies;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.jobseeker.MyRcard;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -19,45 +20,45 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-public class SendrCardActivity extends BaseActivity {
-
-
-	private static final int REQUEST_CONNECT_DEVICE = 1;
-	private static final int REQUEST_ENABLE_BT = 2;
+public class SendrCardActivity extends BaseActivity 
+{
+	private static final int REQUEST_CONNECT_DEVICE = 2;
+	private static final int REQUEST_ENABLE_BT = 1;
 
 	private BluetoothAdapter btAdapter;
 	private BluetoothService btService;
 	private Context mContext;
 	private MyRcard myrcardObj;
+	private int companyId;
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode)
-        {
-            case REQUEST_CONNECT_DEVICE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK) 
-                {
-                    connectDevice(data);
-                }
-                break;
-            case REQUEST_ENABLE_BT:
-                if (resultCode == Activity.RESULT_OK)
-                {
-                	SetupBluetoothService();
-                } else
-                {
-                    Toast.makeText(this, "Bluetooth is not enabled or cannot enable bluetooth",
-                            Toast.LENGTH_SHORT).show();
-                    this.finish();
-                }
-        }
-    }
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode)
+		{
+		case REQUEST_CONNECT_DEVICE:
+			// When DeviceListActivity returns with a device to connect
+			if (resultCode == Activity.RESULT_OK) 
+			{
+				connectDevice(data);
+			}
+			break;
+		case REQUEST_ENABLE_BT:
+			if (resultCode == Activity.RESULT_OK)
+			{
+				SetupBluetoothService();
+			} else
+			{
+				Toast.makeText(this, "Bluetooth is not enabled or cannot enable bluetooth",
+						Toast.LENGTH_SHORT).show();
+				this.finish();
+			}
+		}
+	}
 	private void connectDevice(Intent data) 
 	{
 		String address = data.getExtras()
-		                .getString(ListDevicesActivity.EXTRA_DEVICE_ADDRESS);
-		        BluetoothDevice device = btAdapter.getRemoteDevice(address);
-		        btService.connect(device, GetrCardJSONObject());
+				.getString(ListDevicesActivity.EXTRA_DEVICE_ADDRESS);
+		BluetoothDevice device = btAdapter.getRemoteDevice(address);
+		btService.connect(device, GetrCardJSONObject());
 	}
 	private void SetupBluetoothService()
 	{
@@ -80,6 +81,7 @@ public class SendrCardActivity extends BaseActivity {
 			Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
 			this.finish();
 		}
+		companyId = this.getIntent().getExtras().getInt(Constants.COMPANY_ID);
 		mContext = this;
 	}
 
@@ -88,6 +90,10 @@ public class SendrCardActivity extends BaseActivity {
 	{
 		super.onPause();
 		myrcardObj = null;
+		if(btService != null)
+		{
+			btService.stop();
+		}
 	}
 
 	@Override
@@ -150,7 +156,8 @@ public class SendrCardActivity extends BaseActivity {
 		}
 	}
 
-	private final Handler mHandler = new Handler() {
+	private final Handler mHandler = new Handler()
+	{
 		@Override
 		public void handleMessage(Message msg) {
 
@@ -171,6 +178,15 @@ public class SendrCardActivity extends BaseActivity {
 							Toast.LENGTH_SHORT).show();
 				}
 				break;
+			case Constants.MESSAGE_JSON_DATA_WRITE:
+			{
+				//update rcard sent column of the company table 
+				Companies compObj = new Companies(dbHelper);
+				compObj.UpdateMyrCard(companyId, true);
+				Toast.makeText(mContext, "your rCard succesfully sent",
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
 			}
 		}
 	};

@@ -79,13 +79,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:gravity="center">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/savecompanyinfo"
+            android:text="@string/save"
             android:onClick="saveCompanyInfoClick" />
 
         <Button
@@ -93,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/sendrcard" 
+            android:text="@string/send" 
             android:onClick="sendRcardClick"/>
     </LinearLayout>
 </LinearLayout>

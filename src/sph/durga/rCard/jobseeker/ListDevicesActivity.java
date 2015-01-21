@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.R;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -21,7 +22,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ListDevicesActivity extends Activity {
+public class ListDevicesActivity extends BaseActivity {
+
+	@Override
+	public void onBackPressed()
+	{
+	super.onBackPressed();
+	}
 
 	int REQUEST_ENABLE_BT = 1;
 	int REQUEST_DEVICE_DISCOVERABLE = 2;

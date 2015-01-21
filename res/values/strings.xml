@@ -9,7 +9,8 @@
     <string name="conname">Contact Name</string>
     <string name="otherinfo">Other Info</string>
      <string name="sendrcard">Send Rcard</string>
-     <string name="savecompanyinfo">Save Info</string>
+       <string name="send">Send</string>
+     <string name="save">Save</string>
     <string name="home_msg">Send Resume</string>
     <string name="send_bluetooth">Send using Bluetooth</string>
      <string name="send_nfc">Send using NFC</string>
