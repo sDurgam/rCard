@@ -5,7 +5,25 @@
     <string name="displayrcards">List rCards</string>
     <string name="add">Add</string>
     <string name="name">Name</string>
+    <string name="name_hint">John Appleseed</string>
     <string name="email">Email</string>
+    <string name="email_hint">John.Appleseed@gmail.com</string>
+    <string name="phone">Phone</string>
+    <string name="phone_hint">123 456 7890</string>
+    <string name="primary_skills">Primary Skills</string>
+    <string name="primary_skills_hint">Android, iOS</string>
+    <string name="android_experience">Android Experience</string>
+    <string name="android_portfolio_url">Android Portfolio</string>
+    <string name="ios_experience">iOS Experience</string>
+    <string name="ios_portfolio_url">iOS Portfolio</string>
+    <string name="other_experience">Other Experience</string>
+    <string name="other_portfolio_url">Other Portfolio</string>
+    <string name="linkedin_url">LinkedIn</string>
+    <string name="resume_url">Resume URL</string>
+    <string name="highest_degree">Highest Degree</string>
+
+    <string name="other_info">Other Info</string>
+    <string name="save_rcard">Save rCard</string>
     <string name="conname">Contact Name</string>
     <string name="otherinfo">Other Info</string>
      <string name="sendrcard">Send Rcard</string>
@@ -24,4 +42,6 @@
         <item>Delete local Resume</item>
         <item >Build custom Resume</item>
     </string-array>
+<!--     <string name = "email">Email *</string>
+ -->    
 </resources>

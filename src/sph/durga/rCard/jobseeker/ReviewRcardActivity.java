@@ -1,25 +1,22 @@
 package sph.durga.rCard.jobseeker;
 
 import sph.durga.rCard.BaseActivity;
-import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
-import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.Rcard;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 public class ReviewRcardActivity extends BaseActivity
 {
 	Rcard rcardObj;
 	EditText nameTxt;
 	EditText phoneTxt;
-	EditText emailTxt;
+	ViewSwitcher emailViewSwitcher;
 	EditText primaryskillsTxt;
 	Spinner androidexpList;
 	Spinner iosexpList;
@@ -40,7 +37,7 @@ public class ReviewRcardActivity extends BaseActivity
 		
 		nameTxt = (EditText) findViewById(R.id.nameTxt);
 		phoneTxt = (EditText) findViewById(R.id.phoneTxt);
-		emailTxt = (EditText) findViewById(R.id.emailTxt);
+		emailViewSwitcher = (ViewSwitcher) findViewById(R.id.emailViewSwitcher);
 		primaryskillsTxt = (EditText) findViewById(R.id.primaryskillsTxt);
 		androidexpList = (Spinner) findViewById(R.id.androidexpList);
 		iosexpList = (Spinner) findViewById(R.id.iosexpList);
@@ -78,187 +75,12 @@ public class ReviewRcardActivity extends BaseActivity
 				android.R.layout.simple_list_item_1, array));
 
 	}
-
-//
-//	public void saveName(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//			String name = nameTxt.toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.UpdateField(SQLiteDBHelper.RCARD_NAME, name);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void savePhone(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//			String phone = phoneTxt.toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.UpdateField(SQLiteDBHelper.RCARD_PHONE, phone);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void insertEmail(View view)
-//	{
-//		if(!isEmailUpdated)
-//		{
-//
-//			String email = emailTxt.toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.InsertField(SQLiteDBHelper.RCARD_EMAIL, email);
-//			
-//			
-//			
-//			
-//			isEmailUpdated = true;
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void savePrimarySkills(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//			String primaryskills = primaryskillsTxt.toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.UpdateField(SQLiteDBHelper.RCARD_PRIMARY_SKILLS, primaryskills);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveandroidExp(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//			String androidexp = androidexpList.getSelectedItem().toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.UpdateField(SQLiteDBHelper.RCARD_ANDROID_EXP,  androidexp);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveiosExp(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//			String iosexp = iosexpList.getSelectedItem().toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.UpdateField(SQLiteDBHelper.RCARD_IOS_EXP, iosexp);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveandroidportfolio(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//			String andurl = androidportfolioTxt.toString();
-//			SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//			rcardObj.UpdateField(SQLiteDBHelper.RCARD_PORTFOLIO_ANDROID, andurl);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveiosportfolio(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//		String iosurl = iosportfolioTxt.toString();
-//		SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//		rcardObj.UpdateField(SQLiteDBHelper.RCARD_PORTFOLIO_IOS, iosurl);	
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveothportfolio(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//		String othurl = othportfolioTxt.toString();
-//		SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//		rcardObj.UpdateField(SQLiteDBHelper.RCARD_PORTFOLIO_OTHER, othurl);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void savelinkedin(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//		String linkurl = linkedinTxt.toString();
-//		SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//		rcardObj.UpdateField(SQLiteDBHelper.RCARD_LINKEDIN_URL, linkurl);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveresumeurl(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//		String resumeurl = resumeTxt.toString();
-//		SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//		rcardObj.UpdateField(SQLiteDBHelper.RCARD_RESUME_URL, resumeurl);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-//
-//	public void saveotherinfo(View view)
-//	{
-//		if(isEmailUpdated)
-//		{
-//		String otherinfo = otherinfoTxt.toString();
-//		SQLiteDatabase writer = dbHelper.getWritableDatabase();
-//		rcardObj.UpdateField(SQLiteDBHelper.RCARD_OTHER_INFO, otherinfo);
-//		}
-//		else
-//		{
-//			Toast.makeText(this, Constants.email_error, Toast.LENGTH_SHORT).show();
-//		}
-//	}
-
+	
 	public void SaveAll(View view)
 	{
 		String name = nameTxt.getText().toString();
 		String phone = phoneTxt.getText().toString();
-		String email = emailTxt.getText().toString();
+		String email = ((EditText)emailViewSwitcher.getCurrentView()).getText().toString();
 		String primaryskills = primaryskillsTxt.getText().toString();
 		String androidexp = androidexpList.getSelectedItem().toString();
 		String iosexp = iosexpList.getSelectedItem().toString();
@@ -273,14 +95,29 @@ public class ReviewRcardActivity extends BaseActivity
 		if(result != -1)
 		{
 			isEmailUpdated = true;
+			switchEditToView();
+			
 		}
 	}
 	
+	public void switchEditToView()
+	{
+		emailViewSwitcher.showNext();
+		((TextView)emailViewSwitcher.getCurrentView()).setText(rcardObj.getEmail() == null ? "" : rcardObj.getEmail());
+	}
+	
+	public void TextViewClicked(View currView)
+	{
+		ViewSwitcher parentViewSwitcher = (ViewSwitcher) currView.getParent();
+		String viewString = ((TextView) currView).getText().toString();
+		parentViewSwitcher.showNext();
+		((TextView)parentViewSwitcher.getCurrentView()).setText(viewString);
+	}
 	public void populateRCard()
 	{
 		nameTxt.setText(rcardObj.getName() == null ? "" : rcardObj.getName());
 		phoneTxt.setText(rcardObj.getPhone() == null ? "" : rcardObj.getPhone());
-		emailTxt.setText(rcardObj.getEmail() == null ? "" : rcardObj.getEmail());
+		((TextView)emailViewSwitcher.getCurrentView()).setText(rcardObj.getEmail() == null ? "" : rcardObj.getEmail());
 		primaryskillsTxt.setText(rcardObj.getPrimaryskills() == null ? "" : rcardObj.getPrimaryskills());
 		androidexpList.setSelection(rcardObj.getAndroidexp() == null ? 0 : rcardObj.getAndroidexp());
 		iosexpList.setSelection(rcardObj.getIosexp() == null ? 0 : rcardObj.getIosexp());

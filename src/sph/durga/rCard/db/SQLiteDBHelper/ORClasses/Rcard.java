@@ -85,11 +85,7 @@ public class Rcard
 	{
 		dbHelper = dbhelper;
 	}
-	
-//	public Rcard()
-//	{
-//		
-//	}
+
 
 	public void FetchRCard()
 	{

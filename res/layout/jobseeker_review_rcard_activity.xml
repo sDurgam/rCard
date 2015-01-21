@@ -9,30 +9,48 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <LinearLayout
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-            <TextView
+            <TextView
                 android:id="@+id/emailLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Email*" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/email" />
 
-            <EditText
-                android:id="@+id/emailTxt"
-                android:layout_width="0dp"
+
+             
+			 <ViewSwitcher
+			    android:id="@+id/emailViewSwitcher"
+			    android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
-            <!-- <Button -->
-            <!-- android:id="@+id/emailBtn" -->
-            <!-- android:layout_width="0dp" -->
-            <!-- android:layout_height="wrap_content" -->
-            <!-- android:layout_weight="0.20" -->
-            <!-- android:text="ok" -->
-            <!-- android:onClick="saveEmail" /> -->
+			    android:layout_weight="0.60" >
+			    
+			    
+                <EditText
+                    android:id="@+id/emailTxt"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/email_hint"
+                    android:inputType="textEmailAddress"/>
+                
+			    <TextView
+			        android:id="@+id/emailTxtView"
+			        android:textSize="16sp"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:hint="@string/email_hint"
+			        android:clickable="true"
+			        android:onClick="TextViewClicked" />
 
+            
+            </ViewSwitcher>
         </LinearLayout>
 
         <LinearLayout
@@ -44,8 +62,9 @@
                 android:id="@+id/nameLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Name" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/name" />
 
             <EditText
                 android:id="@+id/nameTxt"
@@ -54,18 +73,7 @@
                 android:layout_weight="0.60"
                 android:maxLines="3"
                 android:scrollbars="vertical"
-                android:text="Durga Malleswari" />
-
-            <!--
-             <Button
-            android:id="@+id/nameBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok" 
-            android:onClick="saveName"/>
-            -->
-
+                android:hint="@string/name_hint" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,25 +85,17 @@
                 android:id="@+id/phoneLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Phone" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/phone" />
 
             <EditText
                 android:id="@+id/phoneTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
-                android:text="000-000-0000" />
-            <!--
-              <Button
-            android:id="@+id/phoneBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="savePhone" />
-            -->
-
+                android:hint="@string/phone_hint" 
+                android:inputType="phone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -107,8 +107,9 @@
                 android:id="@+id/primaryskillsLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Primary Skills" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/primary_skills" />
 
             <EditText
                 android:id="@+id/primaryskillsTxt"
@@ -117,17 +118,7 @@
                 android:layout_weight="0.60"
                 android:maxLines="3"
                 android:scrollbars="vertical"
-                android:text="" />
-
-            <!--
-            <Button
-            android:id="@+id/primaryskillsBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="savePrimarySkills" />
-            -->
+                android:hint="@string/primary_skills_hint" />
         </LinearLayout>
 
         <LinearLayout
@@ -139,8 +130,9 @@
                 android:id="@+id/AndroidLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Android Years of Experience" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/android_experience" />
 
             <Spinner
                 android:id="@+id/androidexpList"
@@ -148,15 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60" />
 
-            <!--
-            <Button
-            android:id="@+id/androidexpBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveandroidExp" />
-            -->
+
         </LinearLayout>
 
         <LinearLayout
@@ -168,8 +152,9 @@
                 android:id="@+id/iosLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="ios Years of Experience" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/ios_experience" />
 
             <Spinner
                 android:id="@+id/iosexpList"
@@ -177,15 +162,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60" />
 
-            <!--
-                <Button
-            android:id="@+id/iosexpBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveiosExp" />
-            -->
         </LinearLayout>
 
         <LinearLayout
@@ -197,24 +173,17 @@
                 android:id="@+id/androidportfolioLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Android portfolio" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/android_portfolio_url" />
 
             <EditText
                 android:id="@+id/androidportfolioTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
+                android:layout_weight="0.60" 
+                android:inputType="textUri"/>
 
-            <!--
-                <Button
-            android:id="@+id/androidportfolioBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveandroidportfolio" />
-            -->
         </LinearLayout>
 
         <LinearLayout
@@ -226,23 +195,17 @@
                 android:id="@+id/iosportfolioLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="ios portfolio" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/ios_portfolio_url" />
 
             <EditText
                 android:id="@+id/iosportfolioTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
-            <!--
-           <Button
-            android:id="@+id/iosportfolioBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveiosportfolio" />
-            -->
+                android:layout_weight="0.60"
+                android:inputType="textUri" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -254,24 +217,17 @@
                 android:id="@+id/othportfolioLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Other portfolio" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/other_portfolio_url" />
 
             <EditText
                 android:id="@+id/othportfolioTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
+                android:layout_weight="0.60" 
+                android:inputType="textUri"/>
 
-            <!--
-                <Button
-            android:id="@+id/othportfolioBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveothportfolio" />
-            -->
         </LinearLayout>
 
         <LinearLayout
@@ -283,24 +239,17 @@
                 android:id="@+id/linkedinLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Linkedin URL" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/linkedin_url" />
 
             <EditText
                 android:id="@+id/linkedinTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
+                android:layout_weight="0.60"
+                android:inputType="textUri"/>
 
-            <!--
-                <Button
-            android:id="@+id/linkedinBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok" 
-            android:onClick="savelinkedin"/>
-            -->
         </LinearLayout>
 
         <LinearLayout
@@ -312,25 +261,16 @@
                 android:id="@+id/resumeLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Resume URL" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/resume_url" />
 
             <EditText
                 android:id="@+id/resumeTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
-
-            <!--
-                <Button
-            android:id="@+id/resumeBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveresumeurl" />
-            -->
-
+                android:layout_weight="0.60" 
+                android:inputType="textUri"/>
         </LinearLayout>
 
         <LinearLayout
@@ -342,24 +282,17 @@
                 android:id="@+id/degreeLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Highestdegree" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/highest_degree" />
 
             <EditText
                 android:id="@+id/highestdegreeTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
+                android:layout_weight="0.60"
+                android:inputType="text"/>
 
-            <!--
-                <Button
-            android:id="@+id/degreeBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="savedegree" />
-            -->
         </LinearLayout>
 
         <LinearLayout
@@ -371,24 +304,16 @@
                 android:id="@+id/otherinfoLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:text="Other Info" />
+                android:layout_weight="0.40"
+                android:gravity="end"
+                android:text="@string/other_info" />
 
             <EditText
                 android:id="@+id/otherinfoTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" />
-
-            <!--
-                <Button
-            android:id="@+id/otherinfoBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="ok"
-            android:onClick="saveotherinfo" />
-            -->
+                android:layout_weight="0.60"
+                android:inputType="text" />
         </LinearLayout>
 
         <Button
@@ -396,7 +321,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="SaveAll"
-            android:text="Save rCard" />
+            android:text="@string/save_rcard"/>
     </LinearLayout>
 
 </ScrollView>
