@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.UUID;
 
 import org.json.JSONException;
@@ -19,14 +17,13 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 public class BluetoothService 
 {
-	private String BT_NAME = "sph.durga.rCard";
+	private String BT_NAME = "sphdurgarCard";
 	private UUID BT_UUID = UUID.fromString("f05b4c80-9c41-11e4-bd06-0800200c9a66");
 	private Handler mHandler;
 
@@ -144,7 +141,7 @@ public class BluetoothService
 						{
 							e.printStackTrace();
 						}
-		
+
 					}
 					break;
 				}
@@ -211,6 +208,7 @@ public class BluetoothService
 				bundle.putString(Constants.RCARD_JSON_DATA, jsonObj.toString());
 				msg.setData(bundle);
 				mHandler.sendMessage(msg);
+				min.close();
 			}
 			catch (IOException e) 
 			{
@@ -219,6 +217,7 @@ public class BluetoothService
 			{
 				e.printStackTrace();
 			}	
+			
 		}
 
 		public void cancel()
@@ -259,32 +258,37 @@ public class BluetoothService
 			BluetoothSocket tmp = null;
 			// Get a BluetoothSocket for a connection with the
 			// given BluetoothDevice
-			  if (Build.VERSION.SDK_INT < 9) { // VK: Build.Version_Codes.GINGERBREAD is not accessible yet so using raw int value
-	                // VK: 9 is the API Level integer value for Gingerbread
-	                try {
-	                    tmp = device.createRfcommSocketToServiceRecord(BT_UUID);
-	                } catch (IOException e1) {
-	                    // TODO Auto-generated catch block
-	                    e1.printStackTrace();
-	                }
-	            } else {
-	                Method m = null;
-	                try {
-	                    m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
-	                } catch (NoSuchMethodException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
-	                }
-	                try {
-	                    tmp = (BluetoothSocket) m.invoke(device, (UUID) BT_UUID);
-	                } catch (IllegalAccessException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
-	                } catch (InvocationTargetException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
-	                }
-	            }
+			// if (Build.VERSION.SDK_INT < 9) { // VK: Build.Version_Codes.GINGERBREAD is not accessible yet so using raw int value
+			// VK: 9 is the API Level integer value for Gingerbread
+			try
+			{
+				tmp = device.createRfcommSocketToServiceRecord(BT_UUID);
+			} catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//   } 
+			//else 
+			//	            {
+			//	                Method m = null;
+			//	                try {
+			//	                    m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
+			//	                } catch (NoSuchMethodException e) 
+			//	                {
+			//	                    // TODO Auto-generated catch block
+			//	                    e.printStackTrace();
+			//	                }
+			//	                try {
+			//	                    tmp = (BluetoothSocket) m.invoke(device, (UUID) BT_UUID);
+			//	                } catch (IllegalAccessException e) {
+			//	                    // TODO Auto-generated catch block
+			//	                    e.printStackTrace();
+			//	                } catch (InvocationTargetException e) {
+			//	                    // TODO Auto-generated catch block
+			//	                    e.printStackTrace();
+			//	                }
+			//	            }
 			mmSocket = tmp;
 		}
 
@@ -392,6 +396,7 @@ public class BluetoothService
 					// Share the sent message back to the UI Activity
 					mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, rcardJSON)
 					.sendToTarget();
+					mmOutStream.close();
 				} 
 				catch (IOException e) 
 				{
