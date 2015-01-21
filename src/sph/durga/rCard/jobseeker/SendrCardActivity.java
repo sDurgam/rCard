@@ -19,7 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-public class sendrCardActivity extends BaseActivity {
+public class SendrCardActivity extends BaseActivity {
 
 
 	private static final int REQUEST_CONNECT_DEVICE = 1;

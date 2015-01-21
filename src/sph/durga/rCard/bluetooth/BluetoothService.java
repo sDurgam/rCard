@@ -30,7 +30,6 @@ public class BluetoothService
 	private UUID BT_UUID = UUID.fromString("f05b4c80-9c41-11e4-bd06-0800200c9a66");
 	private Handler mHandler;
 
-	private BluetoothAdapter btAdapter;
 	private final BluetoothAdapter mAdapter;
 	Constants.sockettype socketType;
 	AcceptThread mAcceptThread;
@@ -98,14 +97,14 @@ public class BluetoothService
 
 	private class AcceptThread extends Thread
 	{
-		private final BluetoothServerSocket btServerSocket;
+		private BluetoothServerSocket btServerSocket;
 
 		public AcceptThread()
 		{
 			BluetoothServerSocket tmpServerSocket = null;
 			try 
 			{
-				tmpServerSocket = btAdapter.listenUsingRfcommWithServiceRecord(BT_NAME, BT_UUID);
+				tmpServerSocket = mAdapter.listenUsingRfcommWithServiceRecord(BT_NAME, BT_UUID);
 
 			} 
 			catch (IOException e)
@@ -135,17 +134,17 @@ public class BluetoothService
 					try 
 					{
 						btServerSocket.close();
+					} catch (IOException e)
+					{
+						e.printStackTrace();
 						try 
 						{
 							socket.close();
-						} catch (IOException e) 
+						} catch (IOException ex) 
 						{
 							e.printStackTrace();
 						}
-					} catch (IOException e)
-					{
-
-						e.printStackTrace();
+		
 					}
 					break;
 				}

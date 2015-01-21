@@ -178,7 +178,7 @@ public class SaveCompanyInfoActivity extends BaseActivity
 	public void sendRcardClick(View view)
 	{
 		SaveCompanyInfo();
-		Intent in = new Intent(this, sendrCardActivity.class);
+		Intent in = new Intent(this, SendrCardActivity.class);
 		startActivity(in);
 	}
 }
