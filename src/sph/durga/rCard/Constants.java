@@ -13,6 +13,8 @@ public interface Constants {
   
     public static final String jobseeker = "jobseeker";
     public static final String recruiter = "recruiter";
+    public static final String companydetails = "companydetails";
+    public static final String COMPANY_ID = "myrcard_company_id";
     
     public static final String jobseeker_email = "email";
     public static enum jobseeker_priority {low, medium, high};
@@ -28,4 +30,8 @@ public interface Constants {
     
     public static final String RCARD_JSON_DATA = "rcard_json_data";
     public static enum sockettype {client, server};
+    
+    public static final String message_mycard_save_success = "rCard successfully saved";
+    public static final String message_mycard_save_failed = "rCard could not be saved";
+    
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class CompaniesListAdapter extends BaseAdapter
@@ -45,10 +46,18 @@ public class CompaniesListAdapter extends BaseAdapter
 			rowView = inflater.inflate(R.layout.jobseeker_company_row_grid, parent, false);
 			displayObj = companiesList.get(position);
 			TextView companyName = (TextView) rowView.findViewById(R.id.companyName);
-			TextView rcardSent = (TextView) rowView.findViewById(R.id.RcardSent);
+			CheckBox RcardSentCBox = (CheckBox) rowView.findViewById(R.id.RcardSentCBox);
 			companyName.setText(displayObj.getCompanyName());
-			rcardSent.setText(String.valueOf(displayObj.isRcardSent()));
-
+			boolean isrCardSent = displayObj.isRcardSent();
+			if(isrCardSent)
+			{
+				RcardSentCBox.setText("Yes");
+			}
+			else
+			{
+				RcardSentCBox.setText("No");
+			}
+			RcardSentCBox.setChecked(isrCardSent);
 		} else 
 		{
 			rowView = convertView;

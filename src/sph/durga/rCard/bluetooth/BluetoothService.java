@@ -30,7 +30,7 @@ public class BluetoothService
 	private Handler mHandler;
 
 	private final BluetoothAdapter mAdapter;
-	Constants.sockettype socketType;
+	Constants.sockettype socketType; 
 	AcceptThread mAcceptThread;
 	ReceiverCardThread mreceiverCardThread;
 	ConnectThread mConnectThread;
@@ -224,6 +224,7 @@ public class BluetoothService
 				bundle.putString(Constants.RCARD_JSON_DATA, jsonObj.toString());
 				msg.setData(bundle);
 				mHandler.sendMessage(msg);
+				mbReader.close();
 				min.close();
 			}
 			catch (IOException e) 
@@ -233,7 +234,7 @@ public class BluetoothService
 			{
 				e.printStackTrace();
 			}	
-			
+
 		}
 
 		public void cancel()
@@ -312,7 +313,8 @@ public class BluetoothService
 					e1.printStackTrace();
 				} catch (NoSuchMethodException e1) {
 					e1.printStackTrace();
-				}	
+				}
+
 			}
 			synchronized (BluetoothService.this)
 			{
