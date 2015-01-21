@@ -116,7 +116,7 @@ public class Companies
 			}
 		}
 		writer.close();
-		return result;
+		return companyId;
 	}
 	
 	public void UpdateMyrCard(int ID, boolean isrCardSent)

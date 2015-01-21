@@ -37,5 +37,7 @@ public class RecruiterRcardListActivity extends BaseActivity
 		rcardlookupList =  rcardlookUpObj.FetchrCardLookupList();
 		jobSeekerListAdapter adapter = new jobSeekerListAdapter(this, rcardlookupList, rcardlookUpObj);
 		rCardGrid.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
+		
 	}
 }

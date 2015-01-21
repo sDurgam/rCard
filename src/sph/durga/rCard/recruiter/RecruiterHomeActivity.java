@@ -1,11 +1,14 @@
 package sph.durga.rCard.recruiter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import sph.durga.rCard.BaseActivity;
 import sph.durga.rCard.Constants;
 import sph.durga.rCard.R;
 import sph.durga.rCard.bluetooth.BluetoothService;
+import sph.durga.rCard.db.SQLiteDBHelper.SQLiteDBHelper;
 import sph.durga.rCard.db.SQLiteDBHelper.ORClasses.recruiter.RCardsLookUp;
-import sph.durga.rCard.jobseeker.ListDevicesActivity;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -18,7 +21,7 @@ import android.widget.Toast;
 
 public class RecruiterHomeActivity extends BaseActivity {
 
-	Context mContext;
+	static Context mContext;
 	private static final int REQUEST_CONNECT_DEVICE = 2;
 	private static final int REQUEST_ENABLE_BT = 1;
 
@@ -27,7 +30,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 	{
 		super.onCreate(arg0);
 		setContentView(R.layout.recruiter_home_activity);
-		mContext = this;
+		mContext = this.getApplicationContext();
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 		}
 	}
 
-	RCardsLookUp rcardlookUpObj;
+	static RCardsLookUp rcardlookUpObj;
 	@Override
 	protected void onResume()
 	{
@@ -87,8 +90,8 @@ public class RecruiterHomeActivity extends BaseActivity {
 			}
 		}
 	}
-	
-	
+
+
 
 	@Override
 	public void onDestroy()
@@ -130,24 +133,49 @@ public class RecruiterHomeActivity extends BaseActivity {
 	{
 		if (btService == null)
 		{
-			btService = new BluetoothService(this, mHandler, Constants.sockettype.client);
+			btService = new BluetoothService(this, mHandler, Constants.sockettype.server);
 		}
-		Intent serverIntent = new Intent(this, ListDevicesActivity.class);
-		startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+		btService.start();
 	}
 
-	private final Handler mHandler = new Handler() {
+	public static final Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 
 			switch (msg.what)
 			{
 			case Constants.MESSAGE_RCARD_JSON_DATA:
-				// save the connected device's name
-				String data = msg.getData().toString();
-				Toast.makeText(mContext,data,
-						Toast.LENGTH_SHORT).show();
-				break;
+				try 
+				{
+					String json = msg.obj.toString();
+					JSONObject jsonObj = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
+					if(jsonObj != null)
+					{
+						jsonObj = jsonObj.getJSONObject("rcard_json_data");
+						String name = jsonObj.getString(SQLiteDBHelper.RCARDS_NAME);
+						String phone = jsonObj.getString(SQLiteDBHelper.RCARDS_PHONE);
+						String email = jsonObj.getString(SQLiteDBHelper.RCARDS_EMAIL);
+						String primaryskills = jsonObj.getString(SQLiteDBHelper.RCARDS_PRIMARY_SKILLS);
+						String androidexp = jsonObj.getString(SQLiteDBHelper.RCARDS_ANDROID_EXP);
+						String iosexp = jsonObj.getString(SQLiteDBHelper.RCARDS_IOS_EXP);
+						String andurl = jsonObj.getString(SQLiteDBHelper.RCARDS_PORTFOLIO_ANDROID);
+						String iosurl = jsonObj.getString(SQLiteDBHelper.RCARDS_PORTFOLIO_IOS);
+						String othurl = jsonObj.getString(SQLiteDBHelper.RCARDS_PORTFOLIO_OTHER);
+						String linkurl = jsonObj.getString(SQLiteDBHelper.RCARDS_LINKEDIN_URL);
+						String resumeurl = jsonObj.getString(SQLiteDBHelper.RCARDS_RESUME_URL);
+						String otherinfo = jsonObj.getString(SQLiteDBHelper.RCARDS_OTHER_INFO);
+						String degree = jsonObj.getString(SQLiteDBHelper.RCARDS_HIGHEST_DEGREE);
+						int androidexpInt = (!androidexp.equals("")) ? Integer.valueOf(androidexp) : 0; 
+						int iosexpint = (!iosexp.equals("")) ? Integer.valueOf(iosexp) : 0; 
+						rcardlookUpObj.InsertrCardslookuptable(name, phone, email, primaryskills, androidexpInt, iosexpint, andurl, iosurl, othurl, linkurl, resumeurl, degree, otherinfo);
+						Toast.makeText(mContext, Constants.message_rcards_received_saved + name, Toast.LENGTH_SHORT).show();
+					}
+				} catch (JSONException e)
+				{
+					
+					e.printStackTrace();
+					Toast.makeText(mContext, Constants.message_rcards_received_notsaved, Toast.LENGTH_SHORT).show();
+				}
 			case Constants.MESSAGE_TOAST:
 				if (null != mContext) {
 					Toast.makeText(mContext, msg.getData().getString(Constants.TOAST),

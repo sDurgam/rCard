@@ -1,12 +1,9 @@
 package sph.durga.rCard.bluetooth;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
@@ -22,6 +19,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class BluetoothService 
 {
@@ -73,10 +71,18 @@ public class BluetoothService
 
 	public synchronized void stop()
 	{
-		if (socketType == Constants.sockettype.server && mAcceptThread != null) 
+		if (socketType == Constants.sockettype.server) 
 		{
-			mAcceptThread.cancel();
-			mAcceptThread = null;
+			if(mreceiverCardThread != null)
+			{
+				mreceiverCardThread.cancel();
+				mreceiverCardThread = null;
+			}
+			if(mAcceptThread != null)
+			{
+				mAcceptThread.cancel();
+				mAcceptThread = null;
+			}
 		}
 		else
 		{
@@ -159,13 +165,13 @@ public class BluetoothService
 
 		public void cancel() 
 		{
-			try 
-			{
-				btServerSocket.close();
-			}
-			catch (IOException e) 
-			{
-			}
+			//			try 
+			//			{
+			//				//btServerSocket.close();
+			//			}
+			//			catch (IOException e) 
+			//			{
+			//			}
 		}
 	}
 
@@ -191,6 +197,7 @@ public class BluetoothService
 	private class ReceiverCardThread extends Thread
 	{
 		BluetoothSocket mSocket;
+		InputStream min;
 		public ReceiverCardThread(BluetoothSocket socket)
 		{
 			mSocket = socket;
@@ -199,40 +206,47 @@ public class BluetoothService
 		{
 			try 
 			{		
-				InputStream min;
-				min = mSocket.getInputStream();
+				Log.d("socket_server", "connected");
+				InputStream tmp;
+				tmp = mSocket.getInputStream();
+				min = tmp;
 				byte[] buffer = new byte[1024];
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				
+				Thread.sleep(1000);
 				while (min.available() > 0)
 				{
 					try 
 					{
 						int count = min.read(buffer);
 						out.write(buffer, 0, count);
-						
+
 					} catch (IOException e)
 					{
 						e.printStackTrace();
 					}
 				}
-				
-				JSONObject jsonObj = new JSONObject(out.toString());
-				
-				Message msg =  mHandler.obtainMessage(Constants.MESSAGE_RCARD_JSON_DATA);
+				out.flush();
+				String json = out.toString();
+				JSONObject jsonObj =  new JSONObject(json.toString());
+				//Message msg =  mHandler.obtainMessage(Constants.MESSAGE_RCARD_JSON_DATA);
 				Bundle bundle = new Bundle();
 				bundle.putString(Constants.RCARD_JSON_DATA, jsonObj.toString());
-				msg.setData(bundle);
-				mHandler.sendMessage(msg);
-				mbReader.close();
-				min.close();
+				Log.d("socket_server",jsonObj.toString() );
+				//msg.setData(bundle);
+				mHandler.obtainMessage(Constants.MESSAGE_RCARD_JSON_DATA, -1, -1, bundle).sendToTarget();
+
 			}
 			catch (IOException e) 
 			{
+				Log.d("socket_server", e.getMessage());
 				e.printStackTrace();
 			} catch (JSONException e) 
 			{
 				e.printStackTrace();
+				Log.d("socket_server", e.getMessage());
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}	
 
 		}
@@ -240,6 +254,7 @@ public class BluetoothService
 		public void cancel()
 		{
 			try {
+				min.close();
 				mSocket.close();
 			} 
 			catch (IOException e)
@@ -263,17 +278,19 @@ public class BluetoothService
 	}
 
 
-	private class ConnectThread extends Thread {
+	private class ConnectThread extends Thread 
+	{
 		private  BluetoothSocket mmSocket;
 		private  BluetoothDevice mmDevice;
 		private  JSONObject rCardjsonData;
 
 
-		public ConnectThread(BluetoothDevice device, JSONObject jsonData) {
+		public ConnectThread(BluetoothDevice device, JSONObject jsonData) 
+		{
 			mmDevice = device;
 			rCardjsonData = jsonData;
 			BluetoothSocket tmp = null;
-			
+
 			try {
 				tmp = device.createRfcommSocketToServiceRecord(BT_UUID);
 			} catch (IOException e1) {
@@ -285,36 +302,48 @@ public class BluetoothService
 		public void run() 
 		{
 			mAdapter.cancelDiscovery();
-			try {
-				mmSocket.connect();
+			while(true)
+			{
+				try {
 
-			} catch (IOException e) {
-				try 
-				{
-					mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] {UUID.class}).invoke(mmDevice, (UUID) BT_UUID);
-					mmSocket.connect();
-				} 
-				catch (IOException e2) 
-				{
+					if(!mmSocket.isConnected())
+					{
+						mmSocket.connect();
+						break;
+					}
+
+				} catch (IOException e) {
 					try 
 					{
-						mmSocket.close();
-					} catch (IOException e1) 
+						mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] {UUID.class}).invoke(mmDevice, (UUID) BT_UUID);
+						if(!mmSocket.isConnected())
+						{
+							mmSocket.connect();
+							break;
+						}
+					} 
+					catch (IOException e2) 
 					{
+						try 
+						{
+							mmSocket.close();
+						} catch (IOException e1) 
+						{
+							e1.printStackTrace();
+						}
+						connectionFailed();
+						return;
+					} catch (IllegalArgumentException e1) {
+						e1.printStackTrace();
+					} catch (IllegalAccessException e1) {
+						e1.printStackTrace();
+					} catch (InvocationTargetException e1) {
+						e1.printStackTrace();
+					} catch (NoSuchMethodException e1) {
 						e1.printStackTrace();
 					}
-					connectionFailed();
-					return;
-				} catch (IllegalArgumentException e1) {
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					e1.printStackTrace();
-				} catch (InvocationTargetException e1) {
-					e1.printStackTrace();
-				} catch (NoSuchMethodException e1) {
-					e1.printStackTrace();
-				}
 
+				}
 			}
 			synchronized (BluetoothService.this)
 			{
@@ -327,6 +356,7 @@ public class BluetoothService
 		{
 			try 
 			{
+
 				mmSocket.close();
 			}
 			catch (IOException e)
@@ -340,11 +370,11 @@ public class BluetoothService
 			device,  JSONObject jsonData) 
 	{
 		// Cancel the thread that completed the connection
-		if (mConnectThread != null) 
-		{
-			mConnectThread.cancel();
-			mConnectThread = null;
-		}
+		//		if (mConnectThread != null) 
+		//		{
+		//			mConnectThread.cancel();
+		//			mConnectThread = null;
+		//		}
 
 		// Cancel any thread currently running a connection
 		if (msendrCardThread != null) 
@@ -358,11 +388,12 @@ public class BluetoothService
 		msendrCardThread.start();
 
 		// Send the name of the connected device back to the UI Activity
-		Message msg = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
+		//Message msg = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
 		Bundle bundle = new Bundle();
 		bundle.putString(Constants.DEVICE_NAME, device.getName());
-		msg.setData(bundle);
-		mHandler.sendMessage(msg);
+		//msg.setData(bundle);
+		//mHandler.sendMessage(msg);
+		mHandler.obtainMessage(Constants.MESSAGE_TOAST, -1, -1, bundle).sendToTarget();
 	}
 
 
@@ -396,13 +427,11 @@ public class BluetoothService
 				mmOutStream.write(stringToSend.getBytes());
 				mmOutStream.flush();
 				// Share the sent message back to the UI Activity
-				mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, rcardJSON).sendToTarget();
+				mHandler.obtainMessage(Constants.MESSAGE_JSON_DATA_WRITE, -1, -1, "sent").sendToTarget();
 			} 
 			catch (IOException e) 
 			{
 				connectionFailed();
-				// Start the service over to restart listening mode
-				BluetoothService.this.start();
 			}
 		}
 
@@ -421,11 +450,12 @@ public class BluetoothService
 
 	public void connectionFailed()
 	{
-		Message msg = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
+
 		Bundle bundle = new Bundle();
 		bundle.putString(Constants.TOAST, "Device connection was lost");
-		msg.setData(bundle);
-		mHandler.sendMessage(msg);
+		mHandler.obtainMessage(Constants.MESSAGE_TOAST, -1, -1, bundle).sendToTarget();
+		//msg.setData(bundle);
+		//mHandler.sendMessage(msg);
 		// Start the service over to restart listening mode
 		BluetoothService.this.start();
 	}

@@ -115,6 +115,7 @@ public class SendrCardActivity extends BaseActivity
 		{
 			jsonObject.put(SQLiteDBHelper.MYRCARD_NAME, myrcardObj.getName());
 			jsonObject.put(SQLiteDBHelper.MYRCARD_PHONE, myrcardObj.getPhone());
+			jsonObject.put(SQLiteDBHelper.MYRCARD_EMAIL, myrcardObj.getEmail());
 			jsonObject.put(SQLiteDBHelper.MYRCARD_PRIMARY_SKILLS, myrcardObj.getPrimaryskills());
 			jsonObject.put(SQLiteDBHelper.MYRCARD_ANDROID_EXP, myrcardObj.getAndroidexp().toString());
 			jsonObject.put(SQLiteDBHelper.MYRCARD_IOS_EXP, myrcardObj.getIosexp().toString());
@@ -183,7 +184,7 @@ public class SendrCardActivity extends BaseActivity
 				//update rcard sent column of the company table 
 				Companies compObj = new Companies(dbHelper);
 				compObj.UpdateMyrCard(companyId, true);
-				Toast.makeText(mContext, "your rCard succesfully sent",
+				Toast.makeText(mContext, "Your rCard succesfully sent",
 						Toast.LENGTH_SHORT).show();
 			}
 			break;

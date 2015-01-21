@@ -30,7 +30,8 @@ public interface Constants {
     
     public static final String RCARD_JSON_DATA = "rcard_json_data";
     public static enum sockettype {client, server};
-    
+    public static final String message_rcards_received_saved = "successfully saved rCard received from ";
+    public static final String message_rcards_received_notsaved = "Failed saving rCard received from ";
     public static final String message_mycard_save_success = "rCard successfully saved";
     public static final String message_mycard_save_failed = "rCard could not be saved";
     

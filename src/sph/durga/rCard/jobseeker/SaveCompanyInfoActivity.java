@@ -28,7 +28,7 @@ public class SaveCompanyInfoActivity extends BaseActivity
 	EditText companyemailTxt;
 	EditText companyotherInfoTxt;
 	Button sendrCardBtn;
-	int companyId;
+	int companyId = -1;
 
 	private static Context mContext;
 
@@ -180,7 +180,10 @@ public class SaveCompanyInfoActivity extends BaseActivity
 
 	public void sendRcardClick(View view)
 	{
-		companyId = SaveCompanyInfo();
+		if(companyId == -1)
+		{
+			companyId = SaveCompanyInfo();
+		}
 		if(companyId != -1)
 		{
 			Intent in = new Intent(this, SendrCardActivity.class);
