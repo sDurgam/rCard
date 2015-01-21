@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 import org.json.JSONException;
@@ -247,9 +248,9 @@ public class BluetoothService
 
 
 	private class ConnectThread extends Thread {
-		private final BluetoothSocket mmSocket;
-		private final BluetoothDevice mmDevice;
-		private final JSONObject rCardjsonData;
+		private  BluetoothSocket mmSocket;
+		private  BluetoothDevice mmDevice;
+		private  JSONObject rCardjsonData;
 
 
 		public ConnectThread(BluetoothDevice device, JSONObject jsonData) {
@@ -304,10 +305,29 @@ public class BluetoothService
 				// Close the socket
 				try 
 				{
-					mmSocket.close();
+				
+					mmSocket =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(mmDevice,1);
+					mmSocket.connect();
 				} catch (IOException e2) 
 				{
-
+					try {
+						mmSocket.close();
+					} catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
+				} catch (IllegalArgumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InvocationTargetException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchMethodException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				connectionFailed();
 				return;
