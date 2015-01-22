@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:layout_marginTop="5sp" >
      <TextView
         android:id="@+id/jobseekerName"
         android:layout_width="0dp"
@@ -17,19 +18,23 @@
         android:layout_weight="0.20"
         android:layout_height="wrap_content"
         android:entries="@array/jobseeker_priority_array" />
-      
-      <Button
-        android:id="@+id/jobseekerrCard"
-         android:layout_width="0dp"
-        android:layout_weight="0.20"
-        android:layout_height="wrap_content"
-        android:text="rCard" />
+
+       <Button
+           android:id="@+id/jobseekerrCard"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="0.18"
+           android:background="#99CC32"
+           android:text="rCard" />
       
          <Button
         android:id="@+id/jobseekersave"
          android:layout_width="0dp"
         android:layout_weight="0.20"
         android:layout_height="wrap_content"
-        android:text="save" />
+        android:text="save"
+        android:layout_marginLeft="5sp"
+         
+         android:background="#99CC32" />
 
 </LinearLayout>

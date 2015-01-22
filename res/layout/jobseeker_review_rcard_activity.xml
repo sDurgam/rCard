@@ -2,20 +2,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbars="vertical" 
-    >
+    android:scrollbars="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        >
+        android:orientation="vertical" >
 
-       <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-            <TextView
+
+            <TextView
                 android:id="@+id/emailLbl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -25,33 +24,28 @@
                 android:paddingRight="10dp"
                 android:text="@string/email" />
 
-
-             
-			 <ViewSwitcher
-			    android:id="@+id/emailViewSwitcher"
-			    android:layout_width="0dp"
+            <ViewSwitcher
+                android:id="@+id/emailViewSwitcher"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-			    android:layout_weight="0.60" >
-			    
-			    
+                android:layout_weight="0.60" >
+
                 <EditText
                     android:id="@+id/emailTxt"
-                    android:textSize="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/email_hint"
-                    android:inputType="textEmailAddress"/>
-                
-			    <TextView
-			        android:id="@+id/emailTxtView"
-			        android:textSize="16sp"
-			        android:layout_width="match_parent"
-			        android:layout_height="match_parent"
-			        android:hint="@string/email_hint"
-			        android:clickable="true"
-			        android:onClick="TextViewClicked" />
+                    android:inputType="textEmailAddress"
+                    android:textSize="16sp" />
 
-            
+                <TextView
+                    android:id="@+id/emailTxtView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:hint="@string/email_hint"
+                    android:onClick="TextViewClicked"
+                    android:textSize="16sp" />
             </ViewSwitcher>
         </LinearLayout>
 
@@ -73,9 +67,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
+                android:hint="@string/name_hint"
                 android:maxLines="3"
-                android:scrollbars="vertical"
-                android:hint="@string/name_hint" />
+                android:scrollbars="vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,8 +90,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
-                android:hint="@string/phone_hint" 
-                android:inputType="phone"/>
+                android:hint="@string/phone_hint"
+                android:inputType="phone" />
         </LinearLayout>
 
         <LinearLayout
@@ -118,9 +112,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
+                android:hint="@string/primary_skills_hint"
                 android:maxLines="3"
-                android:scrollbars="vertical"
-                android:hint="@string/primary_skills_hint" />
+                android:scrollbars="vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -141,8 +135,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60" />
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -163,7 +155,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -183,9 +174,8 @@
                 android:id="@+id/androidportfolioTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" 
-                android:inputType="textUri"/>
-
+                android:layout_weight="0.60"
+                android:inputType="textUri" />
         </LinearLayout>
 
         <LinearLayout
@@ -207,7 +197,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
                 android:inputType="textUri" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -227,9 +216,8 @@
                 android:id="@+id/othportfolioTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" 
-                android:inputType="textUri"/>
-
+                android:layout_weight="0.60"
+                android:inputType="textUri" />
         </LinearLayout>
 
         <LinearLayout
@@ -250,8 +238,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
-                android:inputType="textUri"/>
-
+                android:inputType="textUri" />
         </LinearLayout>
 
         <LinearLayout
@@ -271,8 +258,8 @@
                 android:id="@+id/resumeTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.60" 
-                android:inputType="textUri"/>
+                android:layout_weight="0.60"
+                android:inputType="textUri" />
         </LinearLayout>
 
         <LinearLayout
@@ -293,8 +280,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.60"
-                android:inputType="text"/>
-
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -322,8 +308,11 @@
             android:id="@+id/saveAllBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#99CC32"
             android:onClick="SaveAll"
-            android:text="@string/save_rcard"/>
+            android:text="@string/save_rcard"
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
     </LinearLayout>
 
 </ScrollView>

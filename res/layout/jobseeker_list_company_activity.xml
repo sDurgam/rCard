@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:layout_marginTop="5sp" >
 <!--   <TextView -->
 <!--         android:id="@+id/CompaniesLblTxt" -->
 <!--         android:layout_width="wrap_content" -->
@@ -27,6 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.10"
+        android:background="#99CC32"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
         android:text="@string/add"
         android:onClick="addCompanyBtn"
         android:layout_gravity="center" />

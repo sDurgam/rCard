@@ -306,7 +306,7 @@ public class SaveCompanyInfoActivity extends BaseActivity
 				//update rcard sent column of the company table 
 				Companies compObj = new Companies(dbHelper);
 				compObj.UpdateMyrCard(companyId, true);
-				Toast.makeText(mContext, "Your rCard succesfully sent to " + companynameTxt,
+				Toast.makeText(mContext, "Your rCard succesfully sent to " + companynameTxt.getText().toString(),
 						Toast.LENGTH_SHORT).show();
 			}
 			break;

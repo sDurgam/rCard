@@ -1,25 +1,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
- >
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+		android:gravity="center"        
+        android:text="iOS and Android Developers hiring event by Dice "
+        android:textSize="30sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
     <Button
         android:id="@+id/jobseekerBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I am a Job Seeker" 
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16sp"
-        android:onClick="jobSeekerClick"/>
+        android:layout_weight="0.4"
+        android:background="#99CC32"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
+        android:onClick="jobSeekerClick"
+        android:text="Job Seeker"
+         />
+
+    
 
     <Button
         android:id="@+id/recruiterBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I am a Recruiter"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16sp"
-        android:onClick="recruiterClick" />
+        android:layout_marginLeft="16sp"
+        android:layout_weight="0.4"
+        android:background="#99CC32"
+        android:onClick="recruiterClick"
+        android:text="Recruiter"
+        android:textColor="#ffffff"
+        android:textSize="22sp" />
+    </LinearLayout>
 
 </LinearLayout>

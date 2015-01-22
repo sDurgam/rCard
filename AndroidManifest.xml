@@ -13,9 +13,10 @@
  
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/rcardicon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+      >
         <activity
             android:name="sph.durga.rCard.HomeScreenActivity"
             android:label="@string/app_name" >
@@ -31,7 +32,6 @@
         <activity android:name="sph.durga.rCard.jobseeker.DisplayComapaniesActivity"></activity>
         <activity android:name="sph.durga.rCard.jobseeker.SaveCompanyInfoActivity"></activity>
         <activity android:name="sph.durga.rCard.jobseeker.ListDevicesActivity" android:theme="@android:style/Theme.Dialog"></activity>
-<!--         <activity android:name="sph.durga.rCard.jobseeker.SendrCardActivity"></activity> -->
         <activity android:name="sph.durga.rCard.recruiter.RecruiterHomeActivity"></activity>
          <activity android:name="sph.durga.rCard.recruiter.RecruiterRcardListActivity"></activity>
          <activity android:name="sph.durga.rCard.recruiter.DisplaySelectedrCard"></activity>

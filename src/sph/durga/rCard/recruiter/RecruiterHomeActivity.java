@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class RecruiterHomeActivity extends BaseActivity {
@@ -30,7 +31,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 	{
 		super.onCreate(arg0);
 		setContentView(R.layout.recruiter_home_activity);
-		mContext = this.getApplicationContext();
+		mContext = this;
 	}
 
 	@Override
@@ -52,12 +53,6 @@ public class RecruiterHomeActivity extends BaseActivity {
 		//InsertDummyRCards();
 	}
 
-	private void InsertDummyRCards()
-	{
-		rcardlookUpObj.InsertrCardslookuptable("aa", "aa", "bbg", "aaa", 1,5,"aa", "aa", "bb", "aaa", "cc", "dd", "ee");
-		rcardlookUpObj.InsertrCardslookuptable("aabb", "aaaaaa", "bbaaaaaaa", "aaaaaaaa", 2,3,"aabbbbb", "aacccc", "bbeeee", "aaaeeee", "cceee", "ddeee", "eeeee");
-	}
-
 	public void ListrCardsClick(View view)
 	{
 		Toast.makeText(this, "list rcard clicked", Toast.LENGTH_SHORT).show();
@@ -69,6 +64,8 @@ public class RecruiterHomeActivity extends BaseActivity {
 	rCardService btService ;
 	public void receiverCardsClick(View view)
 	{
+		Toast.makeText(mContext, "waiting for rCard", Toast.LENGTH_SHORT).show();
+		((Button)view).setEnabled(false);
 		//enable bluetooth
 		btAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (btAdapter == null) 
@@ -176,6 +173,7 @@ public class RecruiterHomeActivity extends BaseActivity {
 					e.printStackTrace();
 					Toast.makeText(mContext, Constants.message_rcards_received_notsaved, Toast.LENGTH_SHORT).show();
 				}
+				((Button)((RecruiterHomeActivity)mContext).findViewById(R.id.rCardClickBtn)).setEnabled(true);
 				break;
 			case Constants.MESSAGE_TOAST:
 				if (null != mContext) {

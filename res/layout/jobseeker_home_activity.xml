@@ -2,23 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
     <Button
         android:id="@+id/revrcardBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+       android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.4"
+        android:background="#99CC32"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
         android:text="Review Rcard" 
         android:onClick="ReviewRcardClick"
-        android:layout_gravity="center"
-        android:layout_marginTop="16sp"/>
+        />
 
     <Button
         android:id="@+id/sendrcardBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+       android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16sp"
+        android:layout_weight="0.4"
+        android:background="#99CC32"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
+        android:layout_marginLeft="16sp"
         android:onClick="SendRcardClick"
         android:text="Send Rcard" />
 
